@@ -42,6 +42,9 @@ export default {
   modules: [
     '@nuxtjs/axios'
   ],
+  axios: {
+    baseURL: 'http://api.lnp2pbot.com:3000'
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
