@@ -9,6 +9,7 @@
           <p>First paragraph.</p>
         </v-card-text>
       </v-card>
+      <communities/>
     </v-col>
   </v-row>
 </template>
