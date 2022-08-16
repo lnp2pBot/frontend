@@ -29,8 +29,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { Community } from '../store/communities'
 export default Vue.extend({
-  props: ['community'],
+  props: {
+    community: Community
+  },
   computed: {
     disputeChannel(): string {
       return `https://t.me/${this.community.dispute_channel}`

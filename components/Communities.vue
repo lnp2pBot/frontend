@@ -21,14 +21,13 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { Community } from '../store/communities'
 export default Vue.extend({
   mounted() {
-    // @ts-ignore
-    console.log('Communities has been mounted. breakpoint: ', this.$vuetify.breakpoint.name)
     this.$store.dispatch('communities/getCommunities')
   },
   computed: {
-    communities() {
+    communities(): Community[] {
       return this.$store.state.communities.communities
     }
   }
