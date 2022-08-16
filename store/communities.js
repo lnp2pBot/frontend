@@ -1,20 +1,27 @@
 
 
 export const state = () => ({
-
+  isLoading: false,
+  communities: []
 })
 
 export const actions = {
-  getCommunities() {
-    this.$axios.$get('/communities', {
-      body: JSON.stringify({
-        id: 'id',
-        title: 'title is here',
-        body: 'body is here',
-        userId: 1
+  getCommunities({ commit }) {
+    commit('setLoading', true)
+    this.$axios.$get('/communities')
+      .then(data => {
+        commit('setCommunities', data)
       })
-    })
-      .then(data => console.log(data))
       .catch(console.error)
+      .finally(() => commit('setLoading', false))
+  }
+}
+
+export const mutations = {
+  setCommunities(state, communities) {
+    state.communities = communities
+  },
+  setLoading(state, isLoading) {
+    state.isLoading = isLoading
   }
 }
