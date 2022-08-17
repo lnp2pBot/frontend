@@ -6,6 +6,7 @@
       min-height="200"
       :elevation="hover ? 12 : 2"
       :class="{ 'on-hover': hover }"
+      @click="handleClick"
     >
       <v-card-title class="subtitle-2 d-flex justify-center">
         <u>
@@ -37,6 +38,11 @@ export default Vue.extend({
   computed: {
     disputeChannel(): string {
       return `https://t.me/${this.community.dispute_channel}`
+    }
+  },
+  methods: {
+    handleClick() {
+      this.$router.push(`/community/${this.community._id}`)
     }
   }
 })
