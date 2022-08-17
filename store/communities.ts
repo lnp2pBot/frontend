@@ -1,27 +1,27 @@
 import { ActionTree, MutationTree } from 'vuex'
 
-export class OrderChannel {
-  name!: string
-  type!: string
+export interface OrderChannel {
+  name: string
+  type: string
 }
 
-export class Solver {
-  username!: string
+export interface Solver {
+  username: string
 }
 
-export class Community {
-  _id!: string
-  name!: string
-  order_channels!: OrderChannel[]
-  group!: string
-  fee!: number
-  earnings!: number
-  orders_to_redeem!: number
-  dispute_channel!: string
-  solvers!: Solver[]
-  public!: boolean
-  currencies!: string[]
-  created_at!: string
+export interface Community {
+  _id: string
+  name: string
+  order_channels: OrderChannel[]
+  group: string
+  fee: number
+  earnings: number
+  orders_to_redeem: number
+  dispute_channel: string
+  solvers: Solver[]
+  public: boolean
+  currencies: string[]
+  created_at: string
 }
 
 export const state = () => ({
@@ -34,7 +34,7 @@ export type RootState = ReturnType<typeof state>
 export const actions: ActionTree<RootState, RootState> = {
   getCommunities({ commit }) {
     commit('setLoading', true)
-    this.$axios.$get('/communities')
+    this.$axios.$get<Community[]>('/communities')
       .then(data => {
         commit('setCommunities', data)
       })

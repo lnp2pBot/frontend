@@ -28,11 +28,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import { Community } from '../store/communities'
 export default Vue.extend({
   props: {
-    community: Community
+    community: Object as PropType<Community>
   },
   computed: {
     disputeChannel(): string {
