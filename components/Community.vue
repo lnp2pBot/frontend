@@ -16,8 +16,8 @@
       <v-card-text>
       <p>
         <strong>Fee:</strong> {{ community.fee }} <br>
-        <strong>Earnings:</strong> {{ community.earnings }} <br>
         <strong>Currencies:</strong> {{ community.currencies.join(', ')}} <br>
+        <strong>Orders:</strong> {{ getOrderCount }} <br>
       </p>
         <strong>Dispute channel:</strong>
         <a :href="disputeChannel" target="_blank" rel="noopener noreferrer" class="caption">
@@ -37,13 +37,22 @@ export default Vue.extend({
   },
   computed: {
     disputeChannel(): string {
+      // @ts-ignore
       return `https://t.me/${this.community.dispute_channel}`
-    }
+    },
+    getOrderCount() {
+      return this.$store.getters['orders/getOrderCount'](this.community._id)
+    },
   },
   methods: {
     handleClick() {
+      // @ts-ignore
       this.$router.push(`/community/${this.community._id}`)
-    }
+    },
+  },
+  mounted() {
+    // @ts-ignore
+    this.$store.dispatch('orders/getOrdersByCommunityId', this.community._id)
   }
 })
 </script>

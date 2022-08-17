@@ -1,4 +1,4 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { GetterTree, ActionTree, MutationTree } from 'vuex'
 
 export enum OrderType {
   BUY = 'buy',
@@ -27,9 +27,14 @@ export interface Order {
   created_at: string
 }
 
+type OrdersByCommunity = {
+  [communityId: string]: Order[]
+}
+
 export const state = () => ({
   orders: [] as Order[],
-  selectedOrder: Object as () => Order
+  selectedOrder: Object as () => Order,
+  ordersByCommunity: {} as OrdersByCommunity
 })
 
 export type RootState = ReturnType<typeof state>
@@ -42,7 +47,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   getOrdersByCommunityId({ commit }, communityId: string) {
     this.$axios.$get<Order[]>(`/orders?community_id=${communityId}`)
-      .then(orders => commit('setOrders', orders))
+      .then(orders => commit('setOrdersByCommunity', {communityId, orders}))
       .catch(console.error)
   }
 }
@@ -53,5 +58,22 @@ export const mutations: MutationTree<RootState> = {
   },
   setOrders(state, orders) {
     state.orders = orders
+  },
+  setOrdersByCommunity(state, payload: {communityId: string, orders: Order[]}) {
+    const { orders, communityId } = payload
+    if (!state.ordersByCommunity) {
+      state.ordersByCommunity = {}
+    }
+    const newMap = {...state.ordersByCommunity, communityId: orders}
+    state.ordersByCommunity = newMap
+  }
+}
+
+export const getters: GetterTree<RootState, RootState> = {
+  getOrderCount: state => (communityId: string) => {
+    if (state.ordersByCommunity[communityId]) {
+      return state.ordersByCommunity[communityId].length
+    }
+    return 0
   }
 }
