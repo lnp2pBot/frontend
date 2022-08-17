@@ -26,7 +26,8 @@ export interface Community {
 
 export const state = () => ({
   isLoading: false,
-  communities: [] as Community[]
+  communities: [] as Community[],
+  selectedCommunity: Object as () => Community
 })
 
 export type RootState = ReturnType<typeof state>
@@ -40,6 +41,16 @@ export const actions: ActionTree<RootState, RootState> = {
       })
       .catch(console.error)
       .finally(() => commit('setLoading', false))
+  },
+  getCommunityById({ state, commit }, communityId) {
+    if (state.communities.length > 0) {
+      const selectedCommunity = state.communities.find(
+        comm => comm._id === communityId
+      )
+      if (selectedCommunity) {
+        commit('setSelectedCommunity', selectedCommunity)
+      }
+    }
   }
 }
 
@@ -49,5 +60,8 @@ export const mutations: MutationTree<RootState> = {
   },
   setLoading(state, isLoading) {
     state.isLoading = isLoading
+  },
+  setSelectedCommunity(state, selectedCommunity) {
+    state.selectedCommunity = selectedCommunity
   }
 }

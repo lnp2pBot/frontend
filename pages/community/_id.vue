@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div>Orders for community with id: {{ id }}</div>
-    <div>The community has {{ orders.length }} orders</div>
     <v-container>
       <v-row>
         <v-col>
@@ -64,8 +62,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import { Order, OrderType } from '../../store/orders'
+import { OrderType } from '../../store/orders'
 export default Vue.extend({
+  layout: 'community',
   async asyncData({ params }) {
     const id = params.id
     return { id }
