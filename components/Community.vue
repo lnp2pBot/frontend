@@ -14,16 +14,17 @@
         </u>
       </v-card-title>
       <v-card-text>
-      <p>
-        <strong>Fee:</strong> {{ community.fee }} <br>
-        <strong>Currencies:</strong> {{ community.currencies.join(', ')}} <br>
-        <strong>Orders:</strong> {{ getOrderCount }} <br>
-      </p>
-        <strong>Dispute channel:</strong>
-        <a :href="disputeChannel" target="_blank" rel="noopener noreferrer" class="caption">
-          {{ community.dispute_channel }}
-        </a>
+        <p>
+          <strong>Orders:</strong> {{ getOrderCount }} <br>
+        </p>
       </v-card-text>
+      <currencies class="ml-4" :currencies="community.currencies"/>
+      <v-card-text>
+          <strong>Dispute channel:</strong>
+          <a :href="disputeChannel" target="_blank" rel="noopener noreferrer" class="caption">
+            {{ community.dispute_channel }}
+          </a>
+        </v-card-text>
     </v-card>
   </v-hover>
 </template>
