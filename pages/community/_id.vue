@@ -22,7 +22,7 @@
                       <v-list-item-subtitle>{{ sell.description }}</v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
-                  <v-divider v-if="index !== sells.length - 1"></v-divider>
+                  <v-divider v-if="index !== getSellOrders().length - 1"></v-divider>
                 </div>
               </template>
             </v-list>
