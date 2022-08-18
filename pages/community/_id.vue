@@ -16,12 +16,7 @@
               </div>
               <template v-for="(sell, index) in getSellOrders()">
                 <div :key="sell.id">
-                  <v-list-item link>
-                    <v-list-item-content>
-                      <v-list-item-title>{{ sell.fiat_amount }} {{ sell.fiat_code }}</v-list-item-title>
-                      <v-list-item-subtitle>{{ sell.description }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
+                  <order-details :order="sell"/>
                   <v-divider v-if="index !== getSellOrders().length - 1"></v-divider>
                 </div>
               </template>
@@ -42,12 +37,7 @@
               </div>
               <template v-for="(buy, index) in getBuyOrders()">
                 <div :key="buy.id">
-                  <v-list-item link>
-                    <v-list-item-content>
-                      <v-list-item-title>{{ buy.fiat_amount }} {{ buy.fiat_code }}</v-list-item-title>
-                      <v-list-item-subtitle>{{ buy.description }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
+                  <order-details :order="buy"/>
                   <v-divider v-if="index !== getBuyOrders().length - 1"></v-divider>
                 </div>
               </template>
