@@ -49,10 +49,6 @@ export default Vue.extend({
       // @ts-ignore
       this.$router.push(`/community/${this.community._id}`)
     },
-  },
-  mounted() {
-    // @ts-ignore
-    this.$store.dispatch('orders/getOrdersByCommunityId', this.community._id)
   }
 })
 </script>

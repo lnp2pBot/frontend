@@ -33,6 +33,8 @@ type OrdersByCommunity = {
 
 export const state = () => ({
   orders: [] as Order[],
+  sells: [] as Order[],
+  buys: [] as Order[],
   selectedOrder: Object as () => Order,
   ordersByCommunity: {} as OrdersByCommunity
 })
@@ -40,6 +42,17 @@ export const state = () => ({
 export type RootState = ReturnType<typeof state>
 
 export const actions: ActionTree<RootState, RootState> = {
+  getAllOrders({ commit }) {
+    this.$axios.$get('/orders')
+      .then(orders => {
+        commit('setOrders', orders)
+        const sells = orders.filter((order: Order) => order.type === OrderType.SELL)
+        const buys = orders.filter((order: Order) => order.type === OrderType.BUY)
+        commit('setSells', sells)
+        commit('setBuys', buys)
+      })
+      .catch(err => console.error('Error fetching all orders. err: ', err))
+  },
   getOrderById({ commit }, id: string): void {
     this.$axios.$get<Order>(`/order/${id}`)
       .then(order => commit('setSelectedOrder', order))
@@ -59,6 +72,12 @@ export const mutations: MutationTree<RootState> = {
   setOrders(state, orders) {
     state.orders = orders
   },
+  setSells(state, sells) {
+    state.sells = sells
+  },
+  setBuys(state, buys) {
+    state.buys = buys
+  },
   setOrdersByCommunity(state, payload: {communityId: string, orders: Order[]}) {
     const { orders, communityId } = payload
     if (!state.ordersByCommunity) {
@@ -75,5 +94,19 @@ export const getters: GetterTree<RootState, RootState> = {
       return state.ordersByCommunity[communityId].length
     }
     return 0
+  },
+  getSellsByCommunityId: state => (communityId: string) => {
+    if (!state.sells) return []
+    return state.sells.filter(order => order.community_id === communityId)
+  },
+  getBuysByCommunityId: state => (communityId: string) => {
+    if (!state.buys) return []
+    return state.buys.filter(order => order.community_id === communityId)
+  },
+  getOrdersByCommunityId: state => (communityId: string, type: string) => {
+    if (!state.ordersByCommunity) return []
+    const communityOrders = state.ordersByCommunity[communityId]
+    if (!communityOrders) return []
+    return communityOrders.filter(order => order.type === type)
   }
 }

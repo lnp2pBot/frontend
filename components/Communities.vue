@@ -25,6 +25,7 @@ import { Community } from '../store/communities'
 export default Vue.extend({
   mounted() {
     this.$store.dispatch('communities/getCommunities')
+    this.$store.dispatch('orders/getAllOrders')
   },
   computed: {
     communities(): Community[] {
