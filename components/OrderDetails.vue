@@ -10,7 +10,7 @@
         v-on="on"
       >
         <v-list-item-content>
-          <v-list-item-title>{{ order.fiat_amount }} {{ order.fiat_code }}</v-list-item-title>
+          <v-list-item-title>{{ fiatAmount }} {{ order.fiat_code }}</v-list-item-title>
           <v-list-item-subtitle>{{ order.description }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -54,6 +54,12 @@ export default {
   data() {
     return {
       dialog: false
+    }
+  },
+  computed: {
+    fiatAmount() {
+      if (this.order.fiat_amount) return this.order.fiat_amount
+      return `${this.order.min_amount} - ${this.order.max_amount}`
     }
   }
 }

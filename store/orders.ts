@@ -15,6 +15,8 @@ export interface Order {
   status: string
   type: OrderType
   fiat_amount: number | null
+  min_amount: number | null,
+  max_amount: number | null,
   fiat_code: string
   payment_method: string
   taken_at: string
