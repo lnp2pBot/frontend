@@ -19,6 +19,7 @@
       <v-card-title>
         {{ order.type === 'sell' ? 'Sell' : 'Buy '}} Order
       </v-card-title>
+      <v-card-subtitle>{{ fiatAmount }} {{ order.fiat_code }}</v-card-subtitle>
       <div class="text-body1 ml-6 font-weight-bold">Description</div>
       <v-card-text>
         {{ order.description }}
@@ -27,14 +28,6 @@
       <v-card-text>
         {{ order.payment_method }}
       </v-card-text>
-      <v-divider class="mx-6 mb-2"></v-divider>
-      <div class="ml-6">{{order.fiat_amount}} {{order.fiat_code}}</div>
-      <div class="text-body2 ml-6 font-weight-light">
-        <strong>Fee:</strong> {{ order.fee}}
-      </div>
-      <div class="text-body2 ml-6 font-weight-light">
-        <strong>Amount:</strong> {{ order.amount}}
-      </div>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
