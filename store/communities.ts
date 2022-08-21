@@ -35,14 +35,14 @@ export type RootState = ReturnType<typeof state>
 export const actions: ActionTree<RootState, RootState> = {
   getCommunities({ commit }) {
     commit('setLoading', true)
-    this.$axios.$get<Community[]>('/communities')
+    return this.$axios.$get<Community[]>('/communities')
       .then(data => {
         commit('setCommunities', data)
       })
       .catch(console.error)
       .finally(() => commit('setLoading', false))
   },
-  getCommunityById({ state, commit }, communityId) {
+  setSelectedCommunity({ state, commit }, communityId) {
     if (state.communities.length > 0) {
       const selectedCommunity = state.communities.find(
         comm => comm._id === communityId

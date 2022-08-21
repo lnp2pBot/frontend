@@ -30,7 +30,7 @@ import { mapState } from 'vuex'
 export default Vue.extend({
   mounted() {
     const communityId = this.$route.params.id
-    this.$store.dispatch('communities/getCommunityById', communityId)
+    this.$store.dispatch('communities/setSelectedCommunity', communityId)
   },
   methods: {
     onBackClicked() {

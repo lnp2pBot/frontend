@@ -1,8 +1,8 @@
 <template>
-  <v-row>
-    <div class="d-flex justify-center">
+  <v-row class="d-flex justify-center ma-2">
+    <div>
       <v-avatar 
-        v-for="currency in truncatedList"
+        v-for="currency in displayList"
         class="currency-avatar"
         :key="currency"
         color="teal"
@@ -11,7 +11,7 @@
         <span class="white--text currency-symbol">{{ currency }}</span>
       </v-avatar>
       <v-avatar
-        v-if="currencies.length > MAX_CURRENCIES"
+        v-if="truncate && currencies.length > MAX_CURRENCIES"
         class="currency-avatar"
         color="teal"
         size="32"
@@ -24,16 +24,29 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  props: ['currencies', 'trucate'],
+  props: {
+    currencies: {
+      type: Array,
+      default: () => []
+    },
+    truncate: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       MAX_CURRENCIES: 5
     }
   },
   computed: {
-    truncatedList() {
-      // @ts-ignore
-      return this.currencies.slice(0, this.MAX_CURRENCIES - 1)
+    displayList() {
+      if (this.truncate) {
+        // @ts-ignore
+        return this.currencies.slice(0, this.MAX_CURRENCIES - 1)
+      } else {
+        return this.currencies
+      }
     }
   }
 })
@@ -44,5 +57,6 @@ export default Vue.extend({
 }
 .currency-avatar {
   margin: 1px;
+  cursor: pointer;
 }
 </style>

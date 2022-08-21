@@ -2,6 +2,13 @@
   <div>
     <v-container>
       <v-row>
+        <currencies
+          class="ml-4"
+          :currencies="selectedCommunity.currencies"
+          :truncate="false"
+        />
+      </v-row>
+      <v-row>
         <v-col>
           <div class="text-h5 d-flex justify-center">
             Sells
@@ -51,7 +58,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { Order } from '../../store/orders'
 export default Vue.extend({
   layout: 'community',
@@ -73,7 +80,23 @@ export default Vue.extend({
     ...mapGetters([
       'orders/getSellsByCommunityId',
       'orders/getBuysByCommunityId'
-    ])
+    ]),
+    ...mapState('communities',['selectedCommunity']),
+    ...mapState('communities',['communities'])
   },
+  beforeRouteEnter(to, from, next) {
+    if (from.name === 'index') {
+      next()
+    } else {
+      next(({$store}) => {
+        $store.dispatch('communities/getCommunities')
+          .then(() => {
+            // @ts-ignore
+            $store.dispatch('communities/setSelectedCommunity', to.params.id)
+            next()
+          })
+      })
+    }
+  }
 })
 </script>
