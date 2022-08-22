@@ -10,7 +10,7 @@
           <communities/>
         </v-tab-item>
         <v-tab-item>
-          <orders/>
+          <orders :orders="orders"/>
         </v-tab-item>
       </v-tabs-items>
     </template>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'IndexPage',
   layout: 'main',
@@ -25,6 +26,9 @@ export default {
     return {
       tab: null
     }
+  },
+  computed: {
+    ...mapState('orders', ['orders'])
   }
 }
 </script>

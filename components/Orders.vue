@@ -18,8 +18,11 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 export default Vue.extend({
-  computed: {
-    ...mapState('orders', ['orders'])
+  props: {
+    orders: {
+      type: Array,
+      default: []
+    }
   }
 })
 </script>

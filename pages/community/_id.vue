@@ -13,39 +13,25 @@
           <div class="text-h5 d-flex justify-center">
             Sells
           </div>
-          <v-card>
-            <v-list three-line>
-              <div
-                v-if="getSellOrders().length === 0"
-                class="text-subtitle d-flex justify-center"
-              >
-                No Sell Orders
-              </div>
-              <div v-for="(sell, index) in getSellOrders()" :key="sell.id">
-                <order-details :order="sell"/>
-                <v-divider v-if="index !== getSellOrders().length - 1"></v-divider>
-              </div>
-            </v-list>
-          </v-card>
+          <div
+            v-if="getSellOrders().length === 0"
+            class="text-subtitle d-flex justify-center"
+          >
+            No Sell Orders
+          </div>
+          <orders :orders="getSellOrders()"/>
         </v-col>
         <v-col>
           <div class="text-h5 d-flex justify-center">
             Buys
           </div>
-          <v-card>
-            <v-list three-line>
-              <div
-                v-if="getBuyOrders().length === 0"
-                class="text-subtitle d-flex justify-center"
-              >
-                No Buy Orders
-              </div>
-              <div v-for="(buy, index) in getBuyOrders()" :key="buy.id">
-                <order-details :order="buy"/>
-                <v-divider v-if="index !== getBuyOrders().length - 1"></v-divider>
-              </div>
-            </v-list>
-          </v-card>
+          <div
+            v-if="getBuyOrders().length === 0"
+            class="text-subtitle d-flex justify-center"
+          >
+            No Buy Orders
+          </div>
+          <orders :orders="getBuyOrders()"/>
         </v-col>
       </v-row>
     </v-container>
