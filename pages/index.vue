@@ -9,7 +9,9 @@
         <v-tab-item>
           <communities/>
         </v-tab-item>
-        <v-tab-item></v-tab-item>
+        <v-tab-item>
+          <orders/>
+        </v-tab-item>
       </v-tabs-items>
     </template>
   </div>

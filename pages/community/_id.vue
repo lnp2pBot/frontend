@@ -21,12 +21,10 @@
               >
                 No Sell Orders
               </div>
-              <template v-for="(sell, index) in getSellOrders()">
-                <div :key="sell.id">
-                  <order-details :order="sell"/>
-                  <v-divider v-if="index !== getSellOrders().length - 1"></v-divider>
-                </div>
-              </template>
+              <div v-for="(sell, index) in getSellOrders()" :key="sell.id">
+                <order-details :order="sell"/>
+                <v-divider v-if="index !== getSellOrders().length - 1"></v-divider>
+              </div>
             </v-list>
           </v-card>
         </v-col>
@@ -42,12 +40,10 @@
               >
                 No Buy Orders
               </div>
-              <template v-for="(buy, index) in getBuyOrders()">
-                <div :key="buy.id">
-                  <order-details :order="buy"/>
-                  <v-divider v-if="index !== getBuyOrders().length - 1"></v-divider>
-                </div>
-              </template>
+              <div v-for="(buy, index) in getBuyOrders()" :key="buy.id">
+                <order-details :order="buy"/>
+                <v-divider v-if="index !== getBuyOrders().length - 1"></v-divider>
+              </div>
             </v-list>
           </v-card>
         </v-col>
