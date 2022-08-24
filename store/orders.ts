@@ -33,6 +33,7 @@ export const state = () => ({
   orders: [] as Order[],
   sells: [] as Order[],
   buys: [] as Order[],
+  filter: '',
   selectedOrder: Object as () => Order
 })
 
@@ -54,6 +55,9 @@ export const actions: ActionTree<RootState, RootState> = {
     this.$axios.$get<Order>(`/order/${id}`)
       .then(order => commit('setSelectedOrder', order))
       .catch(console.error)
+  },
+  setFilter({ commit }, filter) {
+    commit('setFilter', filter)
   }
 }
 
@@ -69,6 +73,9 @@ export const mutations: MutationTree<RootState> = {
   },
   setBuys(state, buys) {
     state.buys = buys
+  },
+  setFilter(state, filter) {
+    state.filter = filter.toLowerCase()
   }
 }
 

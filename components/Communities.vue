@@ -39,9 +39,9 @@ export default Vue.extend({
             .toLowerCase()
             .includes(this.filter)
           const currencyCriteria = community.currencies
-          .join(',')
-          .toLowerCase()
-          .includes(this.filter)
+            .join(',')
+            .toLowerCase()
+            .includes(this.filter)
           return nameCriteria || currencyCriteria
         })
     }

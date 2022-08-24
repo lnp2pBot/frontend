@@ -54,7 +54,7 @@ export const actions: ActionTree<RootState, RootState> = {
     }
   },
   setFilter({ commit }, filter) {
-    commit('setFilter', filter.toLowerCase())
+    commit('setFilter', filter)
   }
 }
 
@@ -69,6 +69,6 @@ export const mutations: MutationTree<RootState> = {
     state.selectedCommunity = selectedCommunity
   },
   setFilter(state, filter) {
-    state.filter = filter
+    state.filter = filter.toLowerCase()
   }
 }
