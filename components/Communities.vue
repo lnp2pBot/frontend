@@ -27,13 +27,15 @@ export default Vue.extend({
   computed: {
     ...mapState('communities', ['filter']),
     ...mapState('communities', ['communities']),
+    ...mapState('communities', ['selectedCurrency']),
     communitiesToDisplay(): Community[] {
-      if (this.filter === '') {
+      console.log('communities to display')
+      if (this.filter === '' && !this.selectedCurrency) {
         // Simple case, no filter has been set up
         return this.$store.state.communities.communities
       }
       // Applying filters
-      return this.communities
+      let communities = this.communities
         .filter((community: Community) => {
           const nameCriteria = community.name
             .toLowerCase()
@@ -43,6 +45,15 @@ export default Vue.extend({
             .toLowerCase()
             .includes(this.filter)
           return nameCriteria || currencyCriteria
+        })
+      if (!this.selectedCurrency) {
+        return communities
+      }
+      return communities
+        .filter((community: Community) => {
+          return community.currencies.find(c => {
+            return c === this.selectedCurrency
+          })
         })
     }
   }

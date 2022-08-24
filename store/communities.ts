@@ -28,6 +28,7 @@ export const state = () => ({
   isLoading: false,
   communities: [] as Community[],
   filter: '',
+  selectedCurrency: null,
   selectedCommunity: Object as () => Community
 })
 
@@ -55,6 +56,9 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   setFilter({ commit }, filter) {
     commit('setFilter', filter)
+  },
+  setCurrency({ commit }, currency) {
+    commit('setCurrency', currency)
   }
 }
 
@@ -70,5 +74,8 @@ export const mutations: MutationTree<RootState> = {
   },
   setFilter(state, filter) {
     state.filter = filter.toLowerCase()
+  },
+  setCurrency(state, currency) {
+    state.selectedCurrency = currency
   }
 }
