@@ -43,7 +43,7 @@ export default {
     '@nuxtjs/axios'
   ],
   axios: {
-    baseURL: 'http://api.lnp2pbot.com:3000'
+    baseURL: 'https://c038578a-7c6a-4024-8465-18d0b365e8c1.mock.pstmn.io'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
