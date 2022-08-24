@@ -27,6 +27,7 @@ export interface Community {
 export const state = () => ({
   isLoading: false,
   communities: [] as Community[],
+  filter: '',
   selectedCommunity: Object as () => Community
 })
 
@@ -51,6 +52,9 @@ export const actions: ActionTree<RootState, RootState> = {
         commit('setSelectedCommunity', selectedCommunity)
       }
     }
+  },
+  setFilter({ commit }, filter) {
+    commit('setFilter', filter.toLowerCase())
   }
 }
 
@@ -63,5 +67,8 @@ export const mutations: MutationTree<RootState> = {
   },
   setSelectedCommunity(state, selectedCommunity) {
     state.selectedCommunity = selectedCommunity
+  },
+  setFilter(state, filter) {
+    state.filter = filter
   }
 }
