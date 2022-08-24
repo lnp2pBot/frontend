@@ -5,22 +5,7 @@
         <v-tab>Communities</v-tab>
         <v-tab>Orders</v-tab>
       </v-tabs>
-      <v-container>
-        <v-row class="d-flex justify-center">
-          <v-col xs="12" md="6" xl="4">
-            <v-text-field
-              @input="onFilterChange"
-              class="px-5 mt-5"
-              solo
-              rounded
-              prepend-inner-icon="mdi-magnify"
-              hint="Works for both orders or communities"
-              label="Enter search term"
-            >
-            </v-text-field>
-          </v-col>
-        </v-row>
-      </v-container>
+      <search :onFilterChange="onFilterChange"/>
       <v-tabs-items v-model="tab">
         <v-tab-item>
           <communities/>
