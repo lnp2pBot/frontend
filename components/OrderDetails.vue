@@ -10,7 +10,17 @@
         v-on="on"
       >
         <v-list-item-content>
-          <v-list-item-title>{{ fiatAmount }} {{ order.fiat_code }}</v-list-item-title>
+          <v-list-item-title class="d-flex justify-space-between">
+            {{ fiatAmount }} {{ order.fiat_code }}
+            <v-chip
+              style="cursor: pointer"
+              outlined
+              :color="order.type === 'sell' ? 'red' : 'green'"
+              small
+            >
+              {{ order.type.toUpperCase() }}
+            </v-chip>
+          </v-list-item-title>
           <v-list-item-subtitle>{{ order.description }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
