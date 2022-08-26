@@ -20,9 +20,9 @@
       </v-card-text>
       <currencies class="ml-4" :currencies="community.currencies"/>
       <v-card-text>
-          <strong>Dispute channel:</strong>
-          <a :href="disputeChannel" target="_blank" rel="noopener noreferrer" class="caption">
-            {{ community.dispute_channel }}
+          <strong>Channel:</strong>
+          <a :href="groupChannel" target="_blank" rel="noopener noreferrer" class="caption">
+            {{ community.group }}
           </a>
         </v-card-text>
     </v-card>
@@ -37,9 +37,9 @@ export default Vue.extend({
     community: Object as PropType<Community>
   },
   computed: {
-    disputeChannel(): string {
+    groupChannel(): string {
       // @ts-ignore
-      return `https://t.me/${this.community.dispute_channel}`
+      return `https://t.me/${this.community.group}`
     },
     getOrderCount() {
       return this.$store.getters['orders/getOrderCount'](this.community._id)
