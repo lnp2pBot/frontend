@@ -48,7 +48,7 @@
         <v-col cols="12">
           <div class="d-flex justify-center text-overline font-weight-bold">Creation Date</div>
           <div class="d-flex justify-center text-caption">
-            {{ selectedCommunity.created_at }}
+            {{ creationDate }}
           </div>
         </v-col>
       </v-row>
@@ -60,6 +60,7 @@
 import Vue from 'vue'
 import { mapGetters, mapState } from 'vuex'
 import { Order } from '../../store/orders'
+import { DateTime } from 'luxon'
 export default Vue.extend({
   layout: 'community',
   async asyncData({ params }) {
@@ -82,7 +83,13 @@ export default Vue.extend({
       'orders/getBuysByCommunityId'
     ]),
     ...mapState('communities',['selectedCommunity']),
-    ...mapState('communities',['communities'])
+    ...mapState('communities',['communities']),
+    creationDate() {
+      if (!this.selectedCommunity) return ''
+      const { created_at } = this.selectedCommunity
+      const date = DateTime.fromISO(created_at.split('.')[0])
+      return date.toLocaleString()
+    }
   },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'index') {
