@@ -13,6 +13,31 @@
           <channels :community="selectedCommunity"/>
         </v-col>
       </v-row>
+      <v-row class="d-flex justify-center">
+        <v-col md="6" sm="12">
+          <div class="d-flex justify-center text-h6">Solvers</div>
+          <div
+            class="text-subtitle-2 d-flex justify-center text--secondary font-weight-light"
+            v-if="selectedCommunity.solvers.length === 0"
+          >
+            No solvers ¯\_(ツ)_/¯
+          </div>
+          <div class="d-flex justify-center">
+            <a :href="'http://t.me/jhonsu777'" target="_blank" rel="noopener noreferrer">
+              <v-chip
+                style="cursor:pointer"
+                class="ma-2"
+                color="indigo"
+                text-color="white"
+                v-for="solver in selectedCommunity.solvers"
+                :key="solver.username"
+              >
+                @{{ solver.username }}
+              </v-chip>
+            </a>
+          </div>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col>
           <div class="text-h5 d-flex justify-center">
@@ -87,3 +112,9 @@ export default Vue.extend({
   }
 })
 </script>
+<style>
+a {
+  text-decoration: none;
+  color:inherit;
+}
+</style>
