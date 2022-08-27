@@ -8,6 +8,38 @@
           :truncate="false"
         />
       </v-row>
+      <v-row class="d-flex justify-center">
+        <v-col md="6" sm="12">
+          <v-card outlined class="pa-4">
+            <v-card-title>Channels</v-card-title>
+            <v-card-text>
+              <div>Bot</div>
+              <div>
+                <a :href="groupLink(selectedCommunity.group)">
+                  {{ selectedCommunity.group }}
+                </a>
+              </div>
+            </v-card-text>
+            <v-card-text>
+              <div>Orders</div>
+              <div v-for="(channel, index) in selectedCommunity.order_channels" :key="index">
+                <a :href="groupLink(channel.name)">
+                  {{ channel.name }}
+                </a>
+                - ({{ channel.type }})
+              </div>
+            </v-card-text>
+            <v-card-text>
+              <div>Dispute</div>
+              <div>
+                <a :href="groupLink(selectedCommunity.dispute_channel)">
+                  {{ selectedCommunity.dispute_channel }}
+                </a>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col>
           <div class="text-h5 d-flex justify-center">
@@ -56,6 +88,9 @@ export default Vue.extend({
     getBuyOrders(): Order[] {
       // @ts-ignore
       return this['orders/getBuysByCommunityId'](this.id)
+    },
+    groupLink(name: string) {
+      return `https://t.me/${name}`
     }
   },
   computed: {
