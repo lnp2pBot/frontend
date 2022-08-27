@@ -88,6 +88,7 @@ export default Vue.extend({
     creationDate() {
       if (!this.selectedCommunity) return ''
       const { created_at } = this.selectedCommunity
+      if (!created_at) return ''
       const date = DateTime.fromISO(created_at.split('.')[0])
       return date.toLocaleString()
     }
