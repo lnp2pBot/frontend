@@ -60,6 +60,7 @@
 import Vue from 'vue'
 import { mapGetters, mapState } from 'vuex'
 import { Order } from '../../store/orders'
+// @ts-ignore
 import { DateTime } from 'luxon'
 export default Vue.extend({
   layout: 'community',
