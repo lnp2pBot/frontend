@@ -44,6 +44,14 @@
           <orders :orders="getBuyOrders()"/>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols="12">
+          <div class="d-flex justify-center text-overline font-weight-bold">Creation Date</div>
+          <div class="d-flex justify-center text-caption">
+            {{ selectedCommunity.created_at }}
+          </div>
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
