@@ -38,6 +38,10 @@
       <v-card-text>
         {{ order.payment_method }}
       </v-card-text>
+      <v-divider class="mx-6 my-2"></v-divider>
+      <creation-date
+            :creationDate="order.created_at"
+          />
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
