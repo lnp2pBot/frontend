@@ -5,6 +5,7 @@
   >
     <template v-slot:activator="{on, attrs}">
       <v-list-item
+        three-line
         link
         v-bind="attrs"
         v-on="on"
@@ -21,7 +22,11 @@
               {{ order.type.toUpperCase() }}
             </v-chip>
           </v-list-item-title>
-          <v-list-item-subtitle>{{ order.description }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ summary }}</v-list-item-subtitle>
+          <v-list-item-subtitle class="d-flex justify-space-between">
+            <div> {{ payment }} </div>
+            <div>{{ rating }}</div>
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -59,15 +64,33 @@
 export default {
   props: ['order'],
   data() {
+    const [
+      tradeOut,
+      tradeIn,
+      payment,
+      succesfulOperations,
+      code,
+      price,
+      rating
+    ] = this.order.description.split('\n')
+
     return {
-      dialog: false
+      dialog: false,
+      tradeIn,
+      tradeOut,
+      succesfulOperations,
+      rating,
+      payment
     }
   },
   computed: {
     fiatAmount() {
       if (this.order.fiat_amount) return this.order.fiat_amount
       return `${this.order.min_amount} - ${this.order.max_amount}`
+    },
+    summary() {
+      return `${this.tradeOut} ${this.tradeIn}`
     }
-  }
+   }
 }
 </script>
