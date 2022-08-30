@@ -3,7 +3,41 @@
     <template>
       <search :onFilterChange="onFilterChange"/>
       <v-container>
-        <v-row class="d-flex justify-center">
+        <v-row v-if="$vuetify.breakpoint.mobile">
+          <v-col cols="12">
+            <v-combobox
+              v-if="selected === ORDERS"
+              v-model="selectedCommunity"
+              :items="communities"
+              hint="Select a community"
+              solo
+              clearable
+              label="Community"
+            >
+            </v-combobox>
+            <v-combobox
+              @change="onCurrencyChange"
+              v-model="selectedCurrency"
+              :items="currencies"
+              hint="Select a currency"
+              solo
+              clearable
+              label="Currency"
+            >
+            </v-combobox>
+            <v-combobox
+              v-if="selected === ORDERS"
+              v-model="selectedOrderType"
+              :items="orderTypes"
+              hint="Select an order type"
+              solo
+              clearable
+              label="Buy/Sell"
+            />
+          </v-col>
+        </v-row>
+        <v-row v-if="!$vuetify.breakpoint.mobile"
+          class="d-flex justify-center">
           <v-col cols="2">
             <v-combobox
               v-if="selected === ORDERS"

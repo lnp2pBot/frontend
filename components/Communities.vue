@@ -29,7 +29,6 @@ export default Vue.extend({
     ...mapState('communities', ['communities']),
     ...mapState('communities', ['selectedCurrency']),
     communitiesToDisplay(): Community[] {
-      console.log('communities to display')
       if (this.filter === '' && !this.selectedCurrency) {
         // Simple case, no filter has been set up
         return this.$store.state.communities.communities
