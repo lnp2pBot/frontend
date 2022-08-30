@@ -17,10 +17,12 @@
         <p>
           <strong>Orders:</strong> {{ getOrderCount }} <br>
         </p>
+        <p>
+          <strong>Discount:</strong> {{ communityDiscount.toFixed(1) }} %
+        </p>
       </v-card-text>
       <currencies class="ml-4" :currencies="community.currencies"/>
-      <v-card-text>
-          <strong>Channel:</strong>
+      <v-card-text class="d-flex justify-center">
           <a :href="groupChannel" target="_blank" rel="noopener noreferrer" class="caption">
             {{ community.group }}
           </a>
@@ -31,7 +33,8 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { Community } from '../store/communities'
+import { Community } from '~/store/communities'
+import { calculateDiscount } from '~/utils'
 export default Vue.extend({
   props: {
     community: Object as PropType<Community>
@@ -44,6 +47,9 @@ export default Vue.extend({
     getOrderCount() {
       return this.$store.getters['orders/getOrderCount'](this.community._id)
     },
+    communityDiscount() {
+      return calculateDiscount(this.community.fee)
+    }
   },
   methods: {
     handleClick() {
