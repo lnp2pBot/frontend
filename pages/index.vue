@@ -6,7 +6,7 @@
         <v-row class="d-flex justify-center">
           <v-col cols="2">
             <v-combobox
-              v-if="tab === 1"
+              v-if="selected === ORDERS"
               v-model="selectedCommunity"
               :items="communities"
               hint="Select a community"
@@ -30,7 +30,7 @@
           </v-col>
           <v-col cols="2">
             <v-combobox
-              v-if="tab === 1"
+              v-if="selected === ORDERS"
               v-model="selectedOrderType"
               :items="orderTypes"
               hint="Select an order type"
@@ -64,10 +64,11 @@ export default {
   layout: 'main',
   data() {
     return {
-      tab: 0,
       selectedCurrency: null,
       selectedOrderType: null,
-      selectedCommunity: null
+      selectedCommunity: null,
+      COMMUNITIES: Tabs.COMMUNITIES,
+      ORDERS: Tabs.ORDERS,
     }
   },
   methods: {
