@@ -1,10 +1,6 @@
 <template>
   <div>
     <template>
-      <v-tabs v-model="tab" class="d-flex justify-center" fixed-tabs>
-        <v-tab>Communities</v-tab>
-        <v-tab>Orders</v-tab>
-      </v-tabs>
       <search :onFilterChange="onFilterChange"/>
       <v-container>
         <v-row class="d-flex justify-center">
@@ -46,7 +42,7 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-tabs-items v-model="tab">
+      <v-tabs-items v-model="selected">
         <v-tab-item>
           <communities/>
         </v-tab-item>
@@ -60,13 +56,8 @@
 
 <script lang="ts">
 import { mapState } from 'vuex'
-import { Community } from '~/store/communities'
 import { Order, OrderType } from '~/store/orders'
-
-enum Tabs {
-  COMMUNITIES = 0,
-  ORDERS = 1
-}
+import { Tabs } from '~/store/tabs'
 
 export default {
   name: 'IndexPage',
@@ -105,6 +96,7 @@ export default {
       OrderType.SELL.toUpperCase()
     ],
     ...mapState('orders', ['orders', 'filter']),
+    ...mapState('tabs', ['selected']),
     ...mapState({
       // @ts-ignore
       communities: state => state.communities.communities.map(c => ({text: c.name, value: c})),
