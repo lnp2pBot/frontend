@@ -94,5 +94,8 @@ export const getters: GetterTree<RootState, RootState> = {
   getBuysByCommunityId: state => (communityId: string) => {
     if (!state.buys) return []
     return state.buys.filter(order => order.community_id === communityId)
+  },
+  getOrdersByCommunityId: state => (communityId: string) => {
+    return state.orders.filter(order => order.community_id === communityId)
   }
 }

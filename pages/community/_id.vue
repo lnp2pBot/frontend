@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <currencies
-          class="ml-4"
+          class="my-4"
           :currencies="selectedCommunity.currencies"
           :truncate="false"
         />
@@ -18,7 +18,15 @@
           <solvers :community="selectedCommunity"/>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="$vuetify.breakpoint.mobile">
+        <v-col cols="12">
+          <div class="text-h5 d-flex justify-center">
+            Orders
+          </div>
+          <orders :orders="getAllOrders()"/>
+        </v-col>
+      </v-row>
+      <v-row v-if="!$vuetify.breakpoint.mobile">
         <v-col>
           <div class="text-h5 d-flex justify-center">
             Sells
@@ -68,20 +76,20 @@ export default Vue.extend({
   methods: {
     getSellOrders(): Order[] {
       // @ts-ignore
-      return this['orders/getSellsByCommunityId'](this.id)
+      return this.getSellsByCommunityId(this.id)
     },
     getBuyOrders(): Order[] {
       // @ts-ignore
-      return this['orders/getBuysByCommunityId'](this.id)
+      return this.getBuysByCommunityId(this.id)
+    },
+    getAllOrders(): Order[] {
+      // @ts-ignore
+      return this.getOrdersByCommunityId(this.id)
     }
   },
   computed: {
-    ...mapGetters([
-      'orders/getSellsByCommunityId',
-      'orders/getBuysByCommunityId'
-    ]),
-    ...mapState('communities',['selectedCommunity']),
-    ...mapState('communities',['communities']),
+    ...mapGetters('orders', ['getSellsByCommunityId', 'getBuysByCommunityId', 'getOrdersByCommunityId']),
+    ...mapState('communities',['communities','selectedCommunity'])
   },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'index') {
