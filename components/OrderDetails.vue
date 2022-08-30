@@ -24,8 +24,8 @@
           </v-list-item-title>
           <v-list-item-subtitle>{{ summary }}</v-list-item-subtitle>
           <v-list-item-subtitle class="d-flex justify-space-between">
-            <div> {{ payment }} </div>
-            <div>{{ rating }}</div>
+            <div class="payment text-truncate"> {{ payment }} </div>
+            <div class="rating"> {{ rating }} </div>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -64,16 +64,15 @@
 export default {
   props: ['order'],
   data() {
+    const lines = this.order.description.split('\n')
     const [
       tradeOut,
       tradeIn,
       payment,
-      succesfulOperations,
-      code,
-      price,
-      rating
-    ] = this.order.description.split('\n')
-
+      succesfulOperations
+    ] = lines
+    let rating = lines[lines.length - 2]
+    if (rating.indexOf('⭐') === -1) rating = ''
     return {
       dialog: false,
       tradeIn,
@@ -94,3 +93,12 @@ export default {
    }
 }
 </script>
+<style scoped>
+  .payment {
+    max-width: 80%;
+  }
+  .rating {
+    min-width: 9em;
+    text-align: right;
+  }
+</style>
