@@ -1,5 +1,5 @@
 <template>
-  <v-row class="d-flex justify-center ma-2">
+  <v-row class="d-flex justify-center mx-2">
     <div>
       <v-avatar 
         v-for="currency in displayList"
