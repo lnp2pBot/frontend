@@ -43,7 +43,7 @@ export default {
     '@nuxtjs/axios'
   ],
   axios: {
-    baseURL: 'https://c038578a-7c6a-4024-8465-18d0b365e8c1.mock.pstmn.io'
+    baseURL: process.env.BASE_URL || 'https://c038578a-7c6a-4024-8465-18d0b365e8c1.mock.pstmn.io'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
