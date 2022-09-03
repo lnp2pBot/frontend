@@ -10,7 +10,7 @@
       </v-row>
       <v-row class="d-flex justify-center">
         <v-col md="6" sm="12">
-          <channels :community="selectedCommunity"/>
+          <channels v-if="selectedCommunity" :community="selectedCommunity"/>
         </v-col>
       </v-row>
       <v-row class="d-flex justify-center">

@@ -34,6 +34,7 @@ export default Vue.extend({
   props: ['community'],
   methods: {
     groupLink(name: string) {
+      if (!name) return ''
       return `https://t.me/${name.split('@')[1]}`
     }
   }
