@@ -42,7 +42,7 @@ export default Vue.extend({
   computed: {
     groupChannel(): string {
       // @ts-ignore
-      return `https://t.me/${this.community.group}`
+      return `https://t.me/${this.community.group.split('@')[1]}`
     },
     getOrderCount() {
       return this.$store.getters['orders/getOrderCount'](this.community._id)

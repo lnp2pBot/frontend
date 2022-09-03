@@ -4,7 +4,7 @@
     <v-card-text>
       <div>Bot</div>
       <div>
-        <a :href="groupLink(community.group)">
+        <a :href="groupLink(community.group)" target="_blank" rel="noopener noreferrer">
           {{ community.group }}
         </a>
       </div>
@@ -12,7 +12,7 @@
     <v-card-text>
       <div>Orders</div>
       <div v-for="(channel, index) in community.order_channels" :key="index">
-        <a :href="groupLink(channel.name)">
+        <a :href="groupLink(channel.name)" target="_blank" rel="noopener noreferrer">
           {{ channel.name }}
         </a>
         - ({{ channel.type }})
@@ -21,7 +21,7 @@
     <v-card-text>
       <div>Dispute</div>
       <div>
-        <a :href="groupLink(community.dispute_channel)">
+        <a :href="groupLink(community.dispute_channel)" target="_blank" rel="noopener noreferrer">
           {{ community.dispute_channel }}
         </a>
       </div>
@@ -34,7 +34,7 @@ export default Vue.extend({
   props: ['community'],
   methods: {
     groupLink(name: string) {
-      return `https://t.me/${name}`
+      return `https://t.me/${name.split('@')[1]}`
     }
   }
 })
