@@ -2,11 +2,26 @@
   <div>
     <v-container>
       <v-row>
-        <currencies
-          class="my-4"
-          :currencies="selectedCommunity.currencies"
-          :truncate="false"
-        />
+        <v-col>
+          <div class="text-h5 d-flex justify-center">
+            Monedas
+          </div>
+          <currencies
+            class="my-4"
+            :currencies="selectedCommunity.currencies"
+            :truncate="false"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <div class="text-h5 d-flex justify-center">
+            Descuento
+          </div>
+          <div class="d-flex justify-center font-weight-light">
+            {{ communityDiscount }}%
+          </div>
+        </v-col>
       </v-row>
       <v-row class="d-flex justify-center">
         <v-col md="6" sm="12">
@@ -67,6 +82,7 @@
 import Vue from 'vue'
 import { mapGetters, mapState } from 'vuex'
 import { Order } from '../../store/orders'
+import { calculateDiscount } from '~/utils'
 export default Vue.extend({
   layout: 'community',
   async asyncData({ params }) {
@@ -89,7 +105,10 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters('orders', ['getSellsByCommunityId', 'getBuysByCommunityId', 'getOrdersByCommunityId']),
-    ...mapState('communities',['communities','selectedCommunity'])
+    ...mapState('communities',['communities','selectedCommunity']),
+    communityDiscount() {
+      return calculateDiscount(this.selectedCommunity.fee)
+    }
   },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'index') {
