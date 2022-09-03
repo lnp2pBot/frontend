@@ -31,17 +31,23 @@
       </v-list-item>
     </template>
     <v-card>
-      <v-card-title>
+      <v-card-title class="font-weight-bold">
         {{ order.type === 'sell' ? 'Sell' : 'Buy '}} Order
       </v-card-title>
       <v-card-subtitle>{{ fiatAmount }} {{ order.fiat_code }}</v-card-subtitle>
       <div class="text-body1 ml-6 font-weight-bold">Description</div>
       <v-card-text>
-        {{ order.description }}
+        <div>{{ summary }}</div>
+        <div>{{ payment }}</div>
       </v-card-text>
       <div class="text-body1 ml-6 font-weight-bold">Payment Method</div>
       <v-card-text>
         {{ order.payment_method }}
+      </v-card-text>
+      <div class="text-body1 ml-6 font-weight-bold">History</div>
+      <v-card-text>
+        <div>{{ succesfulOperations }}</div>
+        <div>{{ rating }}</div>
       </v-card-text>
       <v-divider class="mx-6 my-2"></v-divider>
       <creation-date
