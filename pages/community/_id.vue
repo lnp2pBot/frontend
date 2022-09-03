@@ -4,7 +4,7 @@
       <v-row>
         <v-col>
           <div class="text-h5 d-flex justify-center">
-            Monedas
+            Coins
           </div>
           <currencies
             class="my-4"
@@ -16,7 +16,7 @@
       <v-row>
         <v-col cols="12">
           <div class="text-h5 d-flex justify-center">
-            Descuento
+            Discount
           </div>
           <div class="d-flex justify-center font-weight-light">
             {{ communityDiscount.toFixed(1) }}%
