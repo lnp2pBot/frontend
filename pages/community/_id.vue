@@ -19,7 +19,7 @@
             Descuento
           </div>
           <div class="d-flex justify-center font-weight-light">
-            {{ communityDiscount }}%
+            {{ communityDiscount.toFixed(1) }}%
           </div>
         </v-col>
       </v-row>
