@@ -1,5 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
 
+const selectBaseURL = () => {
+  if (process.env.NODE_ENV === 'production')
+    return process.env.BASE_URL
+  else
+    return process.env.BASE_URL || 'https://c038578a-7c6a-4024-8465-18d0b365e8c1.mock.pstmn.io'
+}
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -43,7 +50,7 @@ export default {
     '@nuxtjs/axios'
   ],
   axios: {
-    baseURL: process.env.BASE_URL || 'https://c038578a-7c6a-4024-8465-18d0b365e8c1.mock.pstmn.io'
+    baseURL: selectBaseURL()
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
