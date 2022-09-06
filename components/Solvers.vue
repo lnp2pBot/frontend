@@ -8,24 +8,35 @@
       No solvers ¯\_(ツ)_/¯
     </div>
     <div class="d-flex justify-center">
-      <a :href="'http://t.me/jhonsu777'" target="_blank" rel="noopener noreferrer">
-        <v-chip
-          style="cursor:pointer"
-          class="ma-2"
-          color="indigo"
-          text-color="white"
-          v-for="solver in community.solvers"
-          :key="solver.username"
-        >
+      <v-chip
+      style="cursor:pointer"
+      class="ma-2"
+      color="indigo"
+      text-color="white"
+      v-for="solver in community.solvers"
+      :key="solver.username"
+      >
+        <a :href="solverLink(solver.username)" target="_blank" rel="noopener noreferrer">
           @{{ solver.username }}
-        </v-chip>
-      </a>
+        </a>
+      </v-chip>
     </div>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  props: ['community']
+  props: ['community'],
+  methods: {
+    solverLink(username: string) {
+      if (!username) return ''
+      return `https://t.me/${username}`
+    }
+  }
 })
 </script>
+<style scoped>
+  .v-chip a {
+    color: white;
+  }
+  </style>
