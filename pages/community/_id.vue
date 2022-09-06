@@ -81,7 +81,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters, mapState } from 'vuex'
-import { Order } from '../../store/orders'
+import { Order } from '~/store/orders'
 import { calculateDiscount } from '~/utils'
 export default Vue.extend({
   layout: 'community',
@@ -107,6 +107,7 @@ export default Vue.extend({
     ...mapGetters('orders', ['getSellsByCommunityId', 'getBuysByCommunityId', 'getOrdersByCommunityId']),
     ...mapState('communities',['communities','selectedCommunity']),
     communityDiscount() {
+      // @ts-ignore
       return calculateDiscount(this.selectedCommunity.fee)
     }
   },

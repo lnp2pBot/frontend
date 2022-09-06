@@ -29,28 +29,34 @@ export default Vue.extend({
     ...mapState('communities', ['communities']),
     ...mapState('communities', ['selectedCurrency']),
     communitiesToDisplay(): Community[] {
+      // @ts-ignore
       if (this.filter === '' && !this.selectedCurrency) {
         // Simple case, no filter has been set up
         return this.$store.state.communities.communities
       }
       // Applying filters
+      // @ts-ignore
       let communities = this.communities
         .filter((community: Community) => {
           const nameCriteria = community.name
             .toLowerCase()
+            // @ts-ignore
             .includes(this.filter)
           const currencyCriteria = community.currencies
             .join(',')
             .toLowerCase()
+            // @ts-ignore
             .includes(this.filter)
           return nameCriteria || currencyCriteria
         })
+      // @ts-ignore
       if (!this.selectedCurrency) {
         return communities
       }
       return communities
         .filter((community: Community) => {
           return community.currencies.find(c => {
+            // @ts-ignore
             return c === this.selectedCurrency
           })
         })
