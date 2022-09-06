@@ -1,8 +1,10 @@
 # Frontend
 Frontend to visualize and filter new orders and communities.
 
+# Requirements
+You need nodejs v14.20.0
 ## Configuration
-You must define the base URL for API requests as the `BASE_URL` environment variable (or in the `.env` file) before running. If you fail to do so, a mock API will be used instead.
+You must define the base URL for API requests as the `BASE_URL` environment variable (or in the `.env` file) before running. If you fail to do so and you are **NOT** in a production environment, a mock API will be used instead, a sample env file will be found on `.env-sample`.
 
 ## Build Setup
 
