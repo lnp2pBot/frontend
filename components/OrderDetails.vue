@@ -54,20 +54,30 @@
             :creationDate="order.created_at"
           />
       <v-card-actions>
-        <v-spacer></v-spacer>
         <v-btn
           text
-          color="green darken-1"
+          color="red darken-1"
           @click="dialog = false"
         >
           Close
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn
+          text
+          color="green"
+          @click="takeOrderClicked"
+        >
+          {{ order.type === 'sell' ? 'BUY' : 'SELL' }}
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import { mapGetters } from 'vuex'
+import { Community, OrderChannel } from '~/store/communities'
+export default Vue.extend({
   props: ['order'],
   data() {
     const lines = this.order.description.split('\n')
@@ -88,16 +98,42 @@ export default {
       payment
     }
   },
+  methods: {
+    takeOrderClicked(e: any) {
+      const { community_id, type, tg_channel_message1 } = this.order
+      // @ts-ignore
+      const community: Community = this.getCommunityById(community_id)
+      let url = ''
+      if (community.order_channels.length === 1) {
+        const channel = community.order_channels[0]
+        // @ts-ignore
+        url = this.groupLink(channel.name, tg_channel_message1)
+      } else {
+        const channel = community.order_channels.find((c: OrderChannel) => {
+          return type === c.type
+        })
+        // @ts-ignore
+        url = this.groupLink(channel.name, tg_channel_message1)
+      }
+      window.open(url, '_blank noopener noreferrer')
+    },
+    groupLink(name: string, message: string) {
+      if (!name) return ''
+      return `https://t.me/${name.split('@')[1]}/${message}`
+    }
+  },
   computed: {
     fiatAmount() {
       if (this.order.fiat_amount) return this.order.fiat_amount
       return `${this.order.min_amount} - ${this.order.max_amount}`
     },
     summary() {
+      // @ts-ignore
       return `${this.tradeOut} ${this.tradeIn}`
-    }
-   }
-}
+    },
+    ...mapGetters('communities', ['getCommunityById'])
+  }
+})
 </script>
 <style scoped>
   .payment {
