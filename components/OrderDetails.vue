@@ -100,20 +100,24 @@ export default Vue.extend({
   },
   methods: {
     takeOrderClicked(e: any) {
-      const { community_id, type, tg_channel_message1 } = this.order
-      // @ts-ignore
-      const community: Community = this.getCommunityById(community_id)
       let url = ''
-      if (community.order_channels.length === 1) {
-        const channel = community.order_channels[0]
-        // @ts-ignore
-        url = this.groupLink(channel.name, tg_channel_message1)
+      const { community_id, type, tg_channel_message1 } = this.order
+      if (!community_id) {
+        url = `https://t.me/p2plightning/${tg_channel_message1}`
       } else {
-        const channel = community.order_channels.find((c: OrderChannel) => {
-          return type === c.type
-        })
         // @ts-ignore
-        url = this.groupLink(channel.name, tg_channel_message1)
+        const community: Community = this.getCommunityById(community_id)
+        if (community.order_channels.length === 1) {
+          const channel = community.order_channels[0]
+          // @ts-ignore
+          url = this.groupLink(channel.name, tg_channel_message1)
+        } else {
+          const channel = community.order_channels.find((c: OrderChannel) => {
+            return type === c.type
+          })
+          // @ts-ignore
+          url = this.groupLink(channel.name, tg_channel_message1)
+        }
       }
       window.open(url, '_blank noopener noreferrer')
     },
