@@ -1,4 +1,4 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, MutationTree, GetterTree } from 'vuex'
 
 export interface OrderChannel {
   name: string
@@ -60,6 +60,12 @@ export const actions: ActionTree<RootState, RootState> = {
   setCurrency({ commit }, currency) {
     commit('setCurrency', currency)
   }
+}
+
+export const getters: GetterTree<RootState, RootState> = {
+  getCommunityById: state => (communityId: string) => {
+    return state.communities.find(c => c._id === communityId)
+  },
 }
 
 export const mutations: MutationTree<RootState> = {
