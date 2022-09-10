@@ -19,6 +19,7 @@ export type RootState = ReturnType<typeof state>
 
 export const actions: ActionTree<RootState, RootState> = {
   getUserById({ commit }, id) {
+    commit('setCreatorError', false)
     return this.$axios.$get(`/user/${id}`)
       .then(user => {
         commit('setUser', user)
