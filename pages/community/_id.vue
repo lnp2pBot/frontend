@@ -30,6 +30,11 @@
       </v-row>
       <v-row class="d-flex justify-center">
         <v-col md="6" sm="12">
+          <creator :creator="selectedCommunityCreator"/>
+        </v-col>
+      </v-row>
+      <v-row class="d-flex justify-center">
+        <v-col md="6" sm="12">
           <solvers :community="selectedCommunity"/>
         </v-col>
       </v-row>
@@ -82,6 +87,7 @@
 import Vue from 'vue'
 import { mapGetters, mapState } from 'vuex'
 import { Order } from '~/store/orders'
+import { Community } from '~/store/communities'
 import { calculateDiscount } from '~/utils'
 export default Vue.extend({
   layout: 'community',
@@ -106,24 +112,26 @@ export default Vue.extend({
   computed: {
     ...mapGetters('orders', ['getSellsByCommunityId', 'getBuysByCommunityId', 'getOrdersByCommunityId']),
     ...mapState('communities',['communities','selectedCommunity']),
+    ...mapState('users',['selectedCommunityCreator']),
     communityDiscount() {
       // @ts-ignore
       return calculateDiscount(this.selectedCommunity.fee)
     }
   },
   beforeRouteEnter(to, from, next) {
-    if (from.name === 'index') {
+    next(async ({$store}) => {
+      if (from.name !== 'index') {
+        await $store.dispatch('communities/getCommunities')
+      }
+      // @ts-ignore
+      const community: Community = await $store.dispatch(
+        'communities/setSelectedCommunity',
+        to.params.id
+      )
+      const user = await $store.dispatch('users/getUserById', community.creator_id)
+      await $store.dispatch('users/setCommunityCreator', user)
       next()
-    } else {
-      next(({$store}) => {
-        $store.dispatch('communities/getCommunities')
-          .then(() => {
-            // @ts-ignore
-            $store.dispatch('communities/setSelectedCommunity', to.params.id)
-            next()
-          })
-      })
-    }
+    })
   }
 })
 </script>

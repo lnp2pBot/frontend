@@ -9,13 +9,13 @@
     </div>
     <div class="d-flex justify-center">
       <v-chip
-      style="cursor:pointer"
-      class="ma-2"
-      color="indigo"
-      text-color="white"
-      v-for="solver in community.solvers"
-      :key="solver.username"
-      >
+        style="cursor:pointer"
+        class="ma-2"
+        color="indigo"
+        text-color="white"
+        v-for="solver in community.solvers"
+        :key="solver.username"
+        >
         <a :href="solverLink(solver.username)" target="_blank" rel="noopener noreferrer">
           @{{ solver.username }}
         </a>
@@ -39,4 +39,4 @@ export default Vue.extend({
   .v-chip a {
     color: white;
   }
-  </style>
+</style>

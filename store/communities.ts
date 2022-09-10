@@ -18,6 +18,7 @@ export interface Community {
   earnings: number
   orders_to_redeem: number
   dispute_channel: string
+  creator_id: string,
   solvers: Solver[]
   public: boolean
   currencies: string[]
@@ -52,6 +53,7 @@ export const actions: ActionTree<RootState, RootState> = {
       if (selectedCommunity) {
         commit('setSelectedCommunity', selectedCommunity)
       }
+      return selectedCommunity
     }
   },
   setFilter({ commit }, filter) {
