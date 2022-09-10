@@ -2,7 +2,7 @@
   <div>
     <div class="text-h5 d-flex justify-center">Creator</div>
     <div
-      v-if="!creator"
+      v-if="!creator && !error"
       class="d-flex justify-center ma-3"
     >
       <v-progress-circular
@@ -11,6 +11,15 @@
         color="amber"
       >
       </v-progress-circular>
+    </div>
+    <div v-else-if="error" class="d-flex justify-center flex-column align-center">
+      <v-icon
+        large
+        color="red"
+      >
+        mdi-alert-octagon
+      </v-icon>
+      <div class="text-caption text--disabled">Error while getting creator</div>
     </div>
     <div v-else class="d-flex justify-center">
       <v-chip
@@ -29,7 +38,7 @@
 <script lang="ts">
   import Vue from 'vue'
 export default Vue.extend({
-  props: ['creator'],
+  props: ['creator', 'error'],
   methods: {
     solverLink(username: string) {
       if (!username) return ''

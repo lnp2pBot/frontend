@@ -30,7 +30,7 @@
       </v-row>
       <v-row class="d-flex justify-center">
         <v-col md="6" sm="12">
-          <creator :creator="selectedCommunityCreator"/>
+          <creator :creator="selectedCommunityCreator" :error="creatorError"/>
         </v-col>
       </v-row>
       <v-row class="d-flex justify-center">
@@ -112,7 +112,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters('orders', ['getSellsByCommunityId', 'getBuysByCommunityId', 'getOrdersByCommunityId']),
     ...mapState('communities',['communities','selectedCommunity']),
-    ...mapState('users',['selectedCommunityCreator']),
+    ...mapState('users',['selectedCommunityCreator', 'creatorError']),
     communityDiscount() {
       // @ts-ignore
       return calculateDiscount(this.selectedCommunity.fee)

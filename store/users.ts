@@ -11,7 +11,8 @@ export interface User {
 
 export const state = () => ({
   users: {},
-  selectedCommunityCreator: null as User | null
+  selectedCommunityCreator: null as User | null,
+  creatorError: false
 })
 
 export type RootState = ReturnType<typeof state>
@@ -23,7 +24,10 @@ export const actions: ActionTree<RootState, RootState> = {
         commit('setUser', user)
         return user
       })
-      .catch(err => console.error(`Error fetching user with id ${id}. err: `, err))
+      .catch(err => {
+        commit('setCreatorError', true)
+        console.error(`Error fetching user with id ${id}. err: `, err)
+      })
   },
   setCommunityCreator({ commit }, user) {
     commit('setCommunityCreator', user)
@@ -38,5 +42,8 @@ export const mutations: MutationTree<RootState> = {
   },
   setCommunityCreator(state, user: User) {
     state.selectedCommunityCreator = user
+  },
+  setCreatorError(state, error) {
+    state.creatorError = error
   }
 }

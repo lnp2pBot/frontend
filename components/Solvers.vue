@@ -3,7 +3,7 @@
     <div class="text-h5 d-flex justify-center">Solvers</div>
     <div
       v-if="!community || !community.solvers || community.solvers.length === 0"
-      class="text-subtitle-2 d-flex justify-center text--secondary font-weight-light"
+      class="d-flex justify-center text-caption text--disabled"
     >
       No solvers ¯\_(ツ)_/¯
     </div>
