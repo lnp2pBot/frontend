@@ -35,6 +35,10 @@
         {{ order.type === 'sell' ? 'Sell' : 'Buy '}} Order
       </v-card-title>
       <v-card-subtitle>{{ fiatAmount }} {{ order.fiat_code }}</v-card-subtitle>
+      <div class="text-body1 ml-6 font-weight-bold">ID</div>
+      <v-card-text>
+        {{ order._id }}
+      </v-card-text>
       <div class="text-body1 ml-6 font-weight-bold">Description</div>
       <v-card-text>
         <div>{{ summary }}</div>
