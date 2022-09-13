@@ -54,7 +54,9 @@ export default Vue.extend({
   methods: {
     handleClick() {
       // @ts-ignore
-      this.$router.push(`/community/${this.community._id}`)
+      const url = `/community/${this.community._id}`
+      const locale = this.$i18n.locale
+      this.$router.push(this.localePath(url, locale))
     },
   }
 })
