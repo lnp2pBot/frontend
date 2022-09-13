@@ -49,6 +49,12 @@
         <div>{{ succesfulOperations }}</div>
         <div>{{ rating }}</div>
       </v-card-text>
+      <div class="text-body1 ml-6 font-weight-bold" v-if="hasCommunity">Community</div>
+      <v-card-text v-if="hasCommunity">
+        <a :href="`https://t.me/${communityGroup}`" target="_blank noopener noreferrer">
+          {{ communityName }}
+        </a>
+      </v-card-text>
       <v-divider class="mx-6 my-2"></v-divider>
       <creation-date
             :creationDate="order.created_at"
@@ -134,6 +140,21 @@ export default Vue.extend({
     summary() {
       // @ts-ignore
       return `${this.tradeOut} ${this.tradeIn}`
+    },
+    hasCommunity() {
+      // @ts-ignore
+      const community = this.getCommunityById(this.order.community_id)
+      return community !== undefined
+    },
+    communityName() {
+      // @ts-ignore
+      const community = this.getCommunityById(this.order.community_id)
+      return community.name
+    },
+    communityGroup() {
+      // @ts-ignore
+      const community = this.getCommunityById(this.order.community_id)
+      return community.group.split('@')[1]
     },
     ...mapGetters('communities', ['getCommunityById'])
   }
