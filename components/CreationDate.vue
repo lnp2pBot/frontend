@@ -1,6 +1,6 @@
 <template>
   <div v-if="creationDate">
-    <div class="d-flex justify-center text-overline font-weight-bold">Creation Date</div>
+    <div class="d-flex justify-center text-overline font-weight-bold">{{ $t('creationDate') }}</div>
     <div class="d-flex justify-center text-caption">
       {{ formattedCreationDate }}
     </div>

@@ -15,10 +15,10 @@
       </v-card-title>
       <v-card-text>
         <p>
-          <strong>Orders:</strong> {{ getOrderCount }} <br>
+          <strong>{{ $t('orders') }}:</strong> {{ getOrderCount }} <br>
         </p>
         <p>
-          <strong>Discount:</strong> {{ communityDiscount.toFixed(1) }} %
+          <strong>{{ $t('discount') }}:</strong> {{ communityDiscount.toFixed(1) }} %
         </p>
       </v-card-text>
       <currencies class="ml-4" :currencies="community.currencies"/>

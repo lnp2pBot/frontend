@@ -9,30 +9,30 @@
               v-if="selected === ORDERS"
               v-model="selectedCommunity"
               :items="communities"
-              hint="Select a community"
+              :hint="$t('communityHint')"
               solo
               clearable
-              label="Community"
+              :label="$t('community')"
             >
             </v-combobox>
             <v-combobox
               @change="onCurrencyChange"
               v-model="selectedCurrency"
               :items="currencies"
-              hint="Select a currency"
+              :hint="$t('currencyHint')"
               solo
               clearable
-              label="Currency"
+              :label="$t('currency')"
             >
             </v-combobox>
             <v-combobox
               v-if="selected === ORDERS"
               v-model="selectedOrderType"
               :items="orderTypes"
-              hint="Select an order type"
+              :hint="$t('orderTypeHint')"
               solo
               clearable
-              label="Buy/Sell"
+              :label="$t('buySell')"
             />
           </v-col>
         </v-row>
@@ -43,10 +43,10 @@
               v-if="selected === ORDERS"
               v-model="selectedCommunity"
               :items="communities"
-              hint="Select a community"
+              :hint="$t('communityHint')"
               solo
               clearable
-              label="Community"
+              :label="$t('community')"
             >
             </v-combobox>
           </v-col>
@@ -55,10 +55,10 @@
               @change="onCurrencyChange"
               v-model="selectedCurrency"
               :items="currencies"
-              hint="Select a currency"
+              :hint="$t('currencyHint')"
               solo
               clearable
-              label="Currency"
+              :label="$t('currency')"
             >
             </v-combobox>
           </v-col>
@@ -67,10 +67,10 @@
               v-if="selected === ORDERS"
               v-model="selectedOrderType"
               :items="orderTypes"
-              hint="Select an order type"
+              :hint="$t('orderTypeHint')"
               solo
               clearable
-              label="Buy/Sell"
+              :label="$t('buySell')"
             >
             </v-combobox>
           </v-col>
@@ -85,6 +85,18 @@
         </v-tab-item>
       </v-tabs-items>
     </template>
+    <div class="d-flex justify-center">
+      <v-combobox style="max-width: 10em"
+        class="mt-6 pt-6"
+        v-model="language"
+        :items="availableLocales"
+        @change="onLocaleChange"
+        item-text="name"
+        item-value="code"
+        outlined
+      >
+      </v-combobox>
+    </div>
   </div>
 </template>
 
@@ -96,6 +108,7 @@ import { Tabs } from '~/store/tabs'
 export default {
   name: 'IndexPage',
   layout: 'main',
+  // @ts-ignore
   data() {
     return {
       selectedCurrency: null,
@@ -103,6 +116,8 @@ export default {
       selectedCommunity: null,
       COMMUNITIES: Tabs.COMMUNITIES,
       ORDERS: Tabs.ORDERS,
+      // @ts-ignore
+      language: this.$i18n.locales.find(l => l.code === this.$i18n.locale)
     }
   },
   methods: {
@@ -124,6 +139,12 @@ export default {
       // @ts-ignore
       this.$store.dispatch('communities/setCurrency', currency)
     },
+    onLocaleChange(locale: {code: string, name: string, file: string}) {
+      // @ts-ignore
+      const newPath = this.switchLocalePath(locale.code)
+      // @ts-ignore
+      this.$router.push(newPath)
+    }
   },
   computed: {
     orderTypes: () => [
@@ -146,6 +167,10 @@ export default {
           .forEach((c: string) => currencyMap[c] = true)
 
         return Object.keys(currencyMap)
+      },
+      availableLocales () {
+        // @ts-ignore
+        return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
       }
     }),
     ordersToDisplay(): Order[] {

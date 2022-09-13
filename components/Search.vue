@@ -8,8 +8,8 @@
           solo
           rounded
           prepend-inner-icon="mdi-magnify"
-          hint="Works for both orders or communities"
-          label="Enter search term"
+          :hint="$t('searchHint')"
+          :label="$t('searchLabel')"
         >
         </v-text-field>
       </v-col>

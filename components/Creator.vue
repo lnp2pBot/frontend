@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-h5 d-flex justify-center">Creator</div>
+    <div class="text-h5 d-flex justify-center">{{ $t('creator') }}</div>
     <div
       v-if="!creator && !error"
       class="d-flex justify-center ma-3"
@@ -19,7 +19,7 @@
       >
         mdi-alert-octagon
       </v-icon>
-      <div class="text-caption text--disabled">Error while getting creator</div>
+      <div class="text-caption text--disabled">{{ $t('creatorError') }}</div>
     </div>
     <div v-else class="d-flex justify-center">
       <v-chip

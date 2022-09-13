@@ -1,8 +1,8 @@
 <template>
   <v-card outlined class="pa-4">
-    <v-card-title>Channels</v-card-title>
+    <v-card-title>{{ $t('channels') }}</v-card-title>
     <v-card-text>
-      <div>Bot</div>
+      <div>{{ $t('bot') }}</div>
       <div>
         <a :href="groupLink(community.group)" target="_blank" rel="noopener noreferrer">
           {{ community.group }}
@@ -10,7 +10,7 @@
       </div>
     </v-card-text>
     <v-card-text>
-      <div>Orders</div>
+      <div>{{ $t('orders') }}</div>
       <div v-for="(channel, index) in community.order_channels" :key="index">
         <a :href="groupLink(channel.name)" target="_blank" rel="noopener noreferrer">
           {{ channel.name }}
@@ -19,7 +19,7 @@
       </div>
     </v-card-text>
     <v-card-text>
-      <div>Dispute</div>
+      <div>{{ $t('dispute') }}</div>
       <div>
         <a :href="groupLink(community.dispute_channel)" target="_blank" rel="noopener noreferrer">
           {{ community.dispute_channel }}

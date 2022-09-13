@@ -4,7 +4,7 @@
       <v-row>
         <v-col>
           <div class="text-h5 d-flex justify-center">
-            Coins
+            {{ $t('coins') }}
           </div>
           <currencies
             class="my-4"
@@ -16,7 +16,7 @@
       <v-row>
         <v-col cols="12">
           <div class="text-h5 d-flex justify-center">
-            Discount
+            {{ $t('discount') }}
           </div>
           <div class="d-flex justify-center font-weight-light">
             {{ communityDiscount.toFixed(1) }}%
@@ -41,7 +41,7 @@
       <v-row v-if="$vuetify.breakpoint.mobile">
         <v-col cols="12">
           <div class="text-h5 d-flex justify-center">
-            Orders
+            {{ $t('orders') }}
           </div>
           <orders :orders="getAllOrders()"/>
         </v-col>
@@ -49,25 +49,25 @@
       <v-row v-if="!$vuetify.breakpoint.mobile">
         <v-col>
           <div class="text-h5 d-flex justify-center">
-            Sells
+            {{ $t('sells') }}
           </div>
           <div
             v-if="getSellOrders().length === 0"
             class="text-subtitle d-flex justify-center"
           >
-            No Sell Orders
+            {{ $t('noSells') }}
           </div>
           <orders :orders="getSellOrders()"/>
         </v-col>
         <v-col>
           <div class="text-h5 d-flex justify-center">
-            Buys
+            {{ $t('buys') }}
           </div>
           <div
             v-if="getBuyOrders().length === 0"
             class="text-subtitle d-flex justify-center"
           >
-            No Buy Orders
+            {{ $t('noBuys') }}
           </div>
           <orders :orders="getBuyOrders()"/>
         </v-col>

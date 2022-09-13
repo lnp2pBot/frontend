@@ -47,8 +47,31 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/i18n'
   ],
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        file: 'en.js',
+        name: 'English'
+      },
+      {
+        code: 'es',
+        file: 'es.js',
+        name: 'Español'
+      },
+      {
+        code: 'pt',
+        file: 'pt.js',
+        name: 'Português'
+      }
+    ],
+    defaultLocale: 'es',
+    lazy: true,
+    langDir: 'lang/'
+  },
   axios: {
     baseURL: selectBaseURL()
   },

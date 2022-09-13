@@ -19,7 +19,7 @@
               :color="order.type === 'sell' ? 'red' : 'green'"
               small
             >
-              {{ order.type.toUpperCase() }}
+              {{ $t(order.type.toUpperCase()) }}
             </v-chip>
           </v-list-item-title>
           <v-list-item-subtitle>{{ summary }}</v-list-item-subtitle>
@@ -32,28 +32,28 @@
     </template>
     <v-card>
       <v-card-title class="font-weight-bold">
-        {{ order.type === 'sell' ? 'Sell' : 'Buy '}} Order
+        {{ order.type === 'sell' ? $t('sellOrder') : $t('buyOrder') }}
       </v-card-title>
       <v-card-subtitle>{{ fiatAmount }} {{ order.fiat_code }}</v-card-subtitle>
       <div class="text-body1 ml-6 font-weight-bold">ID</div>
       <v-card-text>
         {{ order._id }}
       </v-card-text>
-      <div class="text-body1 ml-6 font-weight-bold">Description</div>
+      <div class="text-body1 ml-6 font-weight-bold">{{ $t('description') }}</div>
       <v-card-text>
         <div>{{ summary }}</div>
         <div>{{ payment }}</div>
       </v-card-text>
-      <div class="text-body1 ml-6 font-weight-bold">Payment Method</div>
+      <div class="text-body1 ml-6 font-weight-bold">{{ $t('paymentMethod') }}</div>
       <v-card-text>
         {{ order.payment_method }}
       </v-card-text>
-      <div class="text-body1 ml-6 font-weight-bold">History</div>
+      <div class="text-body1 ml-6 font-weight-bold">{{ $t('history') }}</div>
       <v-card-text>
         <div>{{ succesfulOperations }}</div>
         <div>{{ rating }}</div>
       </v-card-text>
-      <div class="text-body1 ml-6 font-weight-bold" v-if="hasCommunity">Community</div>
+      <div class="text-body1 ml-6 font-weight-bold" v-if="hasCommunity"> {{ $t('community')}} </div>
       <v-card-text v-if="hasCommunity">
         <a :href="`https://t.me/${communityGroup}`" target="_blank noopener noreferrer">
           {{ communityName }}
@@ -61,15 +61,15 @@
       </v-card-text>
       <v-divider class="mx-6 my-2"></v-divider>
       <creation-date
-            :creationDate="order.created_at"
-          />
+        :creationDate="order.created_at"
+      />
       <v-card-actions>
         <v-btn
           text
           color="red darken-1"
           @click="dialog = false"
         >
-          Close
+          {{ $t('close') }}
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
@@ -77,7 +77,7 @@
           color="green"
           @click="takeOrderClicked"
         >
-          {{ order.type === 'sell' ? 'BUY' : 'SELL' }}
+          {{ order.type === 'sell' ? $t('toBuy') : $t('toSell') }}
         </v-btn>
       </v-card-actions>
     </v-card>

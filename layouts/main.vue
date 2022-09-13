@@ -7,8 +7,8 @@
       <v-toolbar-title v-text="title" />
       <template v-slot:extension>
         <v-tabs @change="onTabSelected" class="d-flex justify-center" fixed-tabs centered>
-          <v-tab>Communities</v-tab>
-          <v-tab>Orders</v-tab>
+          <v-tab>{{ $t('communities') }} </v-tab>
+          <v-tab>{{ $t('orders') }} </v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
