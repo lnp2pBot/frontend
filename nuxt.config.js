@@ -55,17 +55,20 @@ export default {
       {
         code: 'en',
         file: 'en.js',
-        name: 'English'
+        name: 'English',
+        icon: '🇺🇸 EN'
       },
       {
         code: 'es',
         file: 'es.js',
-        name: 'Español'
+        name: 'Español',
+        icon: '🇪🇸 ES'
       },
       {
         code: 'pt',
         file: 'pt.js',
-        name: 'Português'
+        name: 'Português',
+        icon: '🇧🇷 PT'
       }
     ],
     defaultLocale: 'es',

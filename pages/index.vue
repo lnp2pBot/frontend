@@ -1,8 +1,14 @@
 <template>
   <div>
     <template>
-      <search :onFilterChange="onFilterChange"/>
+        <div class="d-flex justify-center">
+      </div>
       <v-container>
+        <v-row>
+          <v-col cols="12">
+            <search :onFilterChange="onFilterChange"/>
+          </v-col>
+        </v-row>
         <v-row v-if="$vuetify.breakpoint.mobile">
           <v-col cols="12">
             <v-combobox
@@ -85,18 +91,6 @@
         </v-tab-item>
       </v-tabs-items>
     </template>
-    <div class="d-flex justify-center">
-      <v-combobox style="max-width: 10em"
-        class="mt-6 pt-6"
-        v-model="language"
-        :items="availableLocales"
-        @change="onLocaleChange"
-        item-text="name"
-        item-value="code"
-        outlined
-      >
-      </v-combobox>
-    </div>
   </div>
 </template>
 
@@ -115,9 +109,7 @@ export default {
       selectedOrderType: null,
       selectedCommunity: null,
       COMMUNITIES: Tabs.COMMUNITIES,
-      ORDERS: Tabs.ORDERS,
-      // @ts-ignore
-      language: this.$i18n.locales.find(l => l.code === this.$i18n.locale)
+      ORDERS: Tabs.ORDERS
     }
   },
   methods: {
@@ -138,12 +130,6 @@ export default {
     onCurrencyChange(currency: string) {
       // @ts-ignore
       this.$store.dispatch('communities/setCurrency', currency)
-    },
-    onLocaleChange(locale: {code: string, name: string, file: string}) {
-      // @ts-ignore
-      const newPath = this.switchLocalePath(locale.code)
-      // @ts-ignore
-      this.$router.push(newPath)
     }
   },
   computed: {
@@ -167,10 +153,6 @@ export default {
           .forEach((c: string) => currencyMap[c] = true)
 
         return Object.keys(currencyMap)
-      },
-      availableLocales () {
-        // @ts-ignore
-        return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
       }
     }),
     ordersToDisplay(): Order[] {

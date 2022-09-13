@@ -5,6 +5,10 @@
       app
     >
       <v-toolbar-title v-text="title" />
+      <v-spacer></v-spacer>
+      <div class="mt-5">
+        <language-selector/>
+      </div>
       <template v-slot:extension>
         <v-tabs @change="onTabSelected" class="d-flex justify-center" fixed-tabs centered>
           <v-tab>{{ $t('communities') }} </v-tab>
