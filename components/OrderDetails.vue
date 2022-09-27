@@ -90,27 +90,14 @@ import { Community, OrderChannel } from '~/store/communities'
 export default Vue.extend({
   props: ['order'],
   data() {
-    const lines = this.order.description.split('\n')
-    const [
-      tradeOut,
-      tradeIn,
-      payment,
-      succesfulOperations
-    ] = lines
-    let rating = lines[lines.length - 2]
-    if (rating.indexOf('⭐') === -1) rating = ''
     return {
-      dialog: false,
-      tradeIn,
-      tradeOut,
-      succesfulOperations,
-      rating,
-      payment
+      dialog: false
     }
   },
   methods: {
     takeOrderClicked(e: any) {
       let url = ''
+      // @ts-ignore
       const { community_id, type, tg_channel_message1 } = this.order
       if (!community_id) {
         url = `https://t.me/p2plightning/${tg_channel_message1}`
@@ -138,12 +125,42 @@ export default Vue.extend({
   },
   computed: {
     fiatAmount() {
+      // @ts-ignore
       if (this.order.fiat_amount) return this.order.fiat_amount
+      // @ts-ignore
       return `${this.order.min_amount} - ${this.order.max_amount}`
     },
     summary() {
       // @ts-ignore
       return `${this.tradeOut} ${this.tradeIn}`
+    },
+    payment() {
+      // @ts-ignore
+      const lines = this.order.description.split('\n')
+      const [ _, __, payment ] = lines
+      return payment
+    },
+    tradeOut() {
+      // @ts-ignore
+      const lines = this.order.description.split('\n')
+      const [ tradeOut ] = lines
+      return tradeOut
+    },
+    tradeIn() {
+      // @ts-ignore
+      const lines = this.order.description.split('\n')
+      const [ _, tradeIn ] = lines
+      return tradeIn
+    },
+    succesfulOperations() {
+      // @ts-ignore
+      const lines = this.order.description.split('\n')
+      return lines[3]
+    },
+    rating() {
+      // @ts-ignore
+      const lines = this.order.description.split('\n')
+      return lines[lines.length - 2]
     },
     hasCommunity() {
       // @ts-ignore
