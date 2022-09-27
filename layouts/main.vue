@@ -25,16 +25,21 @@
       app
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
+      <v-spacer></v-spacer>
+      <div class="text-caption text--secondary">v{{version}}</div>
     </v-footer>
   </v-app>
 </template>
 <script lang="ts">
 import Vue from 'vue'
+// @ts-ignore
+import pkg from '../package.json'
 import { Tabs } from '~/store/tabs'
 export default Vue.extend({
   data() {
     return {
-      title: 'LNP2PBot Market'
+      title: 'LNP2PBot Market',
+      version: pkg.version
     }
   },
   methods: {
