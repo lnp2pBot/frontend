@@ -11,7 +11,7 @@
         <span class="white--text currency-symbol">{{ currency }}</span>
       </v-avatar>
       <v-avatar
-        v-if="truncate && currencies.length > MAX_CURRENCIES"
+        v-if="truncate && currencies.length > maxCurrencies"
         class="currency-avatar"
         color="teal"
         size="32"
@@ -34,16 +34,24 @@ export default Vue.extend({
       default: true
     }
   },
-  data() {
-    return {
-      MAX_CURRENCIES: 5
-    }
-  },
   computed: {
+    maxCurrencies() {
+      // @ts-ignore
+      const breakpoint = this.$vuetify.breakpoint.name
+      switch (breakpoint) {
+        case 'xl':
+        case 'lg':
+          return 5
+        case 'md':
+        case 'sm':
+        case 'xs':
+          return 3
+      }
+    },
     displayList() {
       if (this.truncate) {
         // @ts-ignore
-        return this.currencies.slice(0, this.MAX_CURRENCIES - 1)
+        return this.currencies.slice(0, this.maxCurrencies - 1)
       } else {
         return this.currencies
       }
