@@ -84,10 +84,10 @@
       </v-container>
       <v-tabs-items v-model="selected">
         <v-tab-item>
-          <communities/>
+          <orders :orders="ordersToDisplay"/>
         </v-tab-item>
         <v-tab-item>
-          <orders :orders="ordersToDisplay"/>
+          <communities/>
         </v-tab-item>
       </v-tabs-items>
     </template>
@@ -95,11 +95,12 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { mapState } from 'vuex'
 import { Order, OrderType } from '~/store/orders'
 import { Tabs } from '~/store/tabs'
 
-export default {
+export default Vue.extend({
   name: 'IndexPage',
   layout: 'main',
   // @ts-ignore
@@ -111,6 +112,10 @@ export default {
       COMMUNITIES: Tabs.COMMUNITIES,
       ORDERS: Tabs.ORDERS
     }
+  },
+  mounted() {
+    this.$store.dispatch('communities/getCommunities')
+    this.$store.dispatch('orders/getAllOrders')
   },
   methods: {
     // @ts-ignore
@@ -218,5 +223,5 @@ export default {
         })
     }
   }
-}
+})
 </script>

@@ -1,8 +1,8 @@
 import { ActionTree, MutationTree } from 'vuex'
 
 export enum Tabs {
-  COMMUNITIES = 0,
-  ORDERS = 1
+  ORDERS = 0,
+  COMMUNITIES = 1
 }
 
 export const state = () => ({
