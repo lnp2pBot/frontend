@@ -120,17 +120,8 @@ export default Vue.extend({
   methods: {
     // @ts-ignore
     onFilterChange(val) {
-      // @ts-ignore
-      switch(this.tab) {
-        case Tabs.COMMUNITIES:
-          // @ts-ignore
-          this.$store.dispatch('communities/setFilter', val)
-          return
-        case Tabs.ORDERS:
-          // @ts-ignore
-          this.$store.dispatch('orders/setFilter', val)
-          return
-      }
+      this.$store.dispatch('communities/setFilter', val)
+      this.$store.dispatch('orders/setFilter', val)
     },
     onCurrencyChange(currency: string) {
       // @ts-ignore
