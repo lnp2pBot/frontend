@@ -25,10 +25,13 @@ export default Vue.extend({
     ...mapState('communities', ['communities']),
     ...mapState('communities', ['selectedCurrency']),
     communitiesToDisplay(): Community[] {
+      const sortMethod = (c1: Community, c2: Community) =>
+        c1.name.localeCompare(c2.name)
       // @ts-ignore
       if (this.filter === '' && !this.selectedCurrency) {
         // Simple case, no filter has been set up
-        return this.$store.state.communities.communities
+        // @ts-ignore
+        return [...this.communities].sort(sortMethod)
       }
       // Applying filters
       // @ts-ignore
@@ -47,7 +50,7 @@ export default Vue.extend({
         })
       // @ts-ignore
       if (!this.selectedCurrency) {
-        return communities
+        return communities.sort(sortMethod)
       }
       return communities
         .filter((community: Community) => {
@@ -56,6 +59,7 @@ export default Vue.extend({
             return c === this.selectedCurrency
           })
         })
+        .sort(sortMethod)
     }
   }
 })
