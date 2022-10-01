@@ -116,6 +116,7 @@ export default Vue.extend({
   mounted() {
     this.$store.dispatch('communities/getCommunities')
     this.$store.dispatch('orders/getAllOrders')
+    this.onFilterChange('')
   },
   methods: {
     // @ts-ignore
