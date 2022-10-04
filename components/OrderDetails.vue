@@ -14,7 +14,8 @@
           <v-list-item-title class="d-flex justify-space-between">
             <div>
               {{ fiatAmount }} {{ order.fiat_code }}
-              <v-badge class="mx-2 my-0 py-0"
+              <v-badge v-if="order.price_from_api"
+                class="mx-2 my-0 py-0"
                 offset-y="5"
                 :color="getPriceMarginColor(order)"
                 :content="(order.price_margin > 0 ? '+': '') + order.price_margin +'%'"
