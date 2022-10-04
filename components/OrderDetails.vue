@@ -14,14 +14,7 @@
           <v-list-item-title class="d-flex justify-space-between">
             <div>
               {{ fiatAmount }} {{ order.fiat_code }}
-              <v-badge v-if="order.price_from_api"
-                class="mx-2 my-0 py-0"
-                offset-y="5"
-                :color="getPriceMarginColor(order)"
-                :content="(order.price_margin > 0 ? '+': '') + order.price_margin +'%'"
-              >
-
-              </v-badge>
+              <price-delta-badge :order="order"/>
             </div>
             <v-chip
               style="cursor: pointer"
@@ -44,7 +37,9 @@
       <v-card-title class="font-weight-bold">
         {{ order.type === 'sell' ? $t('sellOrder') : $t('buyOrder') }}
       </v-card-title>
-      <v-card-subtitle>{{ fiatAmount }} {{ order.fiat_code }}</v-card-subtitle>
+      <v-card-subtitle>
+        {{ fiatAmount }} {{ order.fiat_code }} <price-delta-badge :order="order"/>
+      </v-card-subtitle>
       <div class="text-body1 ml-6 font-weight-bold">ID</div>
       <v-card-text>
         {{ order._id }}
@@ -97,16 +92,7 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import { Community, OrderChannel } from '~/store/communities'
-import { Order, OrderType } from '~/store/orders'
 
-// Color scale used to classify orders by attractiveness
-const Colors = {
-  STRONG_GREEN: '#57DC0B',
-  LIGHT_GREEN: '#A0DC07',
-  AMBER: '#D8C108',
-  ORANGE: '#FC5E0A',
-  STRONG_RED: '#FC0A0A'
-}
 export default Vue.extend({
   props: ['order'],
   data() {
@@ -115,33 +101,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    getPriceMarginColor(order: Order) {
-      if (order.type === OrderType.BUY) {
-        if (order.price_margin > 2) {
-          return Colors.STRONG_GREEN
-        } else if (order.price_margin > 1) {
-          return Colors.LIGHT_GREEN
-        } else if (order.price_margin > 0) {
-          return Colors.AMBER
-        } else if (order.price_margin > -1) {
-          return Colors.ORANGE
-        } else {
-          return Colors.STRONG_RED
-        }
-      } else if (order.type === OrderType.SELL) {
-        if (order.price_margin > 2) {
-          return Colors.STRONG_RED
-        } else if (order.price_margin > 1) {
-          return Colors.ORANGE
-        } else if (order.price_margin > 0) {
-          return Colors.AMBER
-        } else if (order.price_margin > -1) {
-          return Colors.LIGHT_GREEN
-        } else {
-          return Colors.STRONG_GREEN
-        }
-      }
-    },
     takeOrderClicked(e: any) {
       let url = ''
       // @ts-ignore
