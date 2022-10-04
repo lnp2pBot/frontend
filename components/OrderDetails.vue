@@ -68,6 +68,9 @@
       <creation-date
         :creationDate="order.created_at"
       />
+      <time-left class="mt-3"
+        :creationDate="order.created_at">
+      </time-left>
       <v-card-actions>
         <v-btn
           text

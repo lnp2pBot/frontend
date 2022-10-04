@@ -30,5 +30,7 @@ export default {
   bot: 'Bot',
   dispute: 'Dispute',
   creator: 'Creator',
-  creatorError: 'Error while getting creator'
+  creatorError: 'Error while getting creator',
+  timeLeft: 'Time Left',
+  orderExpired: 'Order expired!'
 }

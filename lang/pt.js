@@ -30,5 +30,7 @@ export default {
   bot: 'Bot',
   dispute: 'Disputa',
   creator: 'Criador',
-  creatorError: 'Falha ao obter o criador'
+  creatorError: 'Falha ao obter o criador',
+  timeLeft: 'Tempo Restante',
+  orderExpired: 'A Ordem Expirou!'
 }
