@@ -31,7 +31,7 @@
               :label="$t('currency')"
             >
             </v-combobox>
-            <v-combobox
+            <v-select
               v-if="selected === ORDERS"
               v-model="selectedOrderType"
               :items="orderTypes"
@@ -69,7 +69,7 @@
             </v-combobox>
           </v-col>
           <v-col cols="2">
-            <v-combobox
+            <v-select
               v-if="selected === ORDERS"
               v-model="selectedOrderType"
               :items="orderTypes"
@@ -78,7 +78,7 @@
               clearable
               :label="$t('buySell')"
             >
-            </v-combobox>
+            </v-select>
           </v-col>
         </v-row>
       </v-container>
