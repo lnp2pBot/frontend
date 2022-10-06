@@ -25,13 +25,13 @@ export default Vue.extend({
   methods: {
     getPriceMarginColor(order: Order) {
       if (order.type === OrderType.BUY) {
-        if (order.price_margin > 2) {
+        if (order.price_margin >= 1) {
           return Colors.STRONG_GREEN
-        } else if (order.price_margin > 1) {
+        } else if (order.price_margin >= 0) {
           return Colors.LIGHT_GREEN
-        } else if (order.price_margin > 0) {
+        } else if (order.price_margin >= -1) {
           return Colors.AMBER
-        } else if (order.price_margin > -1) {
+        } else if (order.price_margin >= -2) {
           return Colors.ORANGE
         } else {
           return Colors.STRONG_RED
