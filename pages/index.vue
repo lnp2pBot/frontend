@@ -139,15 +139,15 @@ export default Vue.extend({
     ...mapState({
       // @ts-ignore
       communities: state => state.communities.communities.map(c => ({text: c.name, value: c})),
+      // @ts-ignore
       currencies: state => {
         const currencyMap = {}
         // @ts-ignore
-        const _currencies = state.communities
+        state.orders.orders
+          .map((order: Order) => order.fiat_code)
+          .filter((fiatCode: string) => fiatCode !== undefined)
           // @ts-ignore
-          .communities.map(community => community.currencies)
-          .flat()
-          // @ts-ignore
-          .forEach((c: string) => currencyMap[c] = true)
+          .forEach((fiatCode: string) => currencyMap[fiatCode] = true)
 
         return Object.keys(currencyMap)
       }
