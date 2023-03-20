@@ -9,6 +9,7 @@ const selectBaseURL = () => {
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  target: 'static',
   head: {
     titleTemplate: '%s - lnp2pbot-market',
     title: 'lnp2pbot-market',
