@@ -32,5 +32,6 @@ export default {
   creator: 'Criador',
   creatorError: 'Falha ao obter o criador',
   timeLeft: 'Tempo Restante',
-  orderExpired: 'A Ordem Expirou!'
+  orderExpired: 'A Ordem Expirou!',
+  created: 'Criada'
 }

@@ -32,5 +32,6 @@ export default {
   creator: 'Creator',
   creatorError: 'Error while getting creator',
   timeLeft: 'Time Left',
-  orderExpired: 'Order expired!'
+  orderExpired: 'Order expired!',
+  created: 'Created',
 }

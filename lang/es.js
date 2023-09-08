@@ -32,5 +32,6 @@ export default {
   creator: 'Creador',
   creatorError: 'Error al obtener el creador',
   timeLeft: 'Validez',
-  orderExpired: 'La orden expiro!'
+  orderExpired: 'La orden expiro!',
+  created: 'Creada'
 }
