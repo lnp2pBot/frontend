@@ -40,13 +40,22 @@
               clearable
               :label="$t('buySell')"
             />
+            <v-select
+              v-if="selected === COMMUNITIES"
+              v-model="selectedSortingMethod"
+              :items="sortBy"
+              hint="Sort by"
+              solo
+              label="Sort by"
+            >
+            </v-select>
           </v-col>
         </v-row>
         <v-row v-if="!$vuetify.breakpoint.mobile"
           class="d-flex justify-center">
-          <v-col cols="2">
+          <v-col cols="2" v-if="selected === ORDERS">
             <v-combobox
-              v-if="selected === ORDERS"
+
               v-model="selectedCommunity"
               :items="communities"
               :hint="$t('communityHint')"
@@ -68,15 +77,26 @@
             >
             </v-combobox>
           </v-col>
-          <v-col cols="2">
+          <v-col cols="2" v-if="selected === ORDERS">
             <v-select
-              v-if="selected === ORDERS"
+              prepend-icon="mdi-map"
               v-model="selectedOrderType"
               :items="orderTypes"
               :hint="$t('orderTypeHint')"
               solo
               clearable
               :label="$t('buySell')"
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="2" v-if="selected === COMMUNITIES">
+            <v-select
+              v-model="selectedSortingMethod"
+              :items="sortBy"
+              hint="Sort by"
+              solo
+              clearable
+              label="Sort by"
             >
             </v-select>
           </v-col>
@@ -87,7 +107,7 @@
           <orders :orders="ordersToDisplay"/>
         </v-tab-item>
         <v-tab-item>
-          <communities/>
+          <communities :sortingMethod="selectedSortingMethod"/>
         </v-tab-item>
       </v-tabs-items>
     </template>
@@ -97,6 +117,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { Community } from '~/store/communities'
 import { Order, OrderType } from '~/store/orders'
 import { Tabs } from '~/store/tabs'
 
@@ -109,6 +130,7 @@ export default Vue.extend({
       selectedCurrency: null,
       selectedOrderType: null,
       selectedCommunity: null,
+      selectedSortingMethod: undefined,
       COMMUNITIES: Tabs.COMMUNITIES,
       ORDERS: Tabs.ORDERS
     }
@@ -127,13 +149,23 @@ export default Vue.extend({
     onCurrencyChange(currency: string) {
       // @ts-ignore
       this.$store.dispatch('communities/setCurrency', currency)
-    }
+    },
+    sortByCreationDate: (c1: Community, c2: Community) =>
+      new Date(c1.created_at).getTime() - new Date(c2.created_at).getTime(),
+    sortByName: (c1: Community, c2: Community) =>
+      c1.name.localeCompare(c2.name, undefined, { sensitivity: 'base' }) 
   },
   computed: {
     orderTypes: () => [
       OrderType.BUY.toUpperCase(),
       OrderType.SELL.toUpperCase()
     ],
+    sortBy: function() {
+      return [
+      { text: 'Name', value: this.sortByName },
+      { text: 'Creation Date', value: this.sortByCreationDate }
+    ] 
+    },
     ...mapState('orders', ['orders', 'filter']),
     ...mapState('tabs', ['selected']),
     ...mapState({

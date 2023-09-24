@@ -20,22 +20,33 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 import { Community } from '../store/communities'
 export default Vue.extend({
+  props: {
+    sortingMethod: {
+      type: Function,
+      default: (c1: Community, c2: Community) => {
+        return new Date(c1.created_at).getTime() - new Date(c2.created_at).getTime()
+      }
+    }
+  },
   computed: {
     ...mapState('communities', ['filter']),
     ...mapState('communities', ['communities']),
     ...mapState('communities', ['selectedCurrency']),
     communitiesToDisplay(): Community[] {
-      const sortMethod = (c1: Community, c2: Community) =>
-        c1.name.localeCompare(c2.name)
+      console.log('this.sortingMethod: ', this.sortingMethod)
+      // @ts-ignore
+      const clonedCommunities: Community[] = JSON.parse(JSON.stringify(this.communities))
       // @ts-ignore
       if (this.filter === '' && !this.selectedCurrency) {
         // Simple case, no filter has been set up
-        // @ts-ignore
-        return [...this.communities].sort(sortMethod)
+        return [
+          // @ts-ignore
+          ...clonedCommunities.sort(this.sortingMethod ?? undefined)
+        ]
       }
       // Applying filters
       // @ts-ignore
-      let communities = this.communities
+      let communities = clonedCommunities
         .filter((community: Community) => {
           const nameCriteria = community.name
             .toLowerCase()
@@ -50,7 +61,8 @@ export default Vue.extend({
         })
       // @ts-ignore
       if (!this.selectedCurrency) {
-        return communities.sort(sortMethod)
+        // @ts-ignore
+        return communities.sort(this.sortingMethod ?? undefined)
       }
       return communities
         .filter((community: Community) => {
@@ -59,7 +71,8 @@ export default Vue.extend({
             return c === this.selectedCurrency
           })
         })
-        .sort(sortMethod)
+        // @ts-ignore
+        .sort(this.sortingMethod ?? undefined)
     }
   }
 })
